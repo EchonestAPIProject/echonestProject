@@ -118,24 +118,41 @@ app.clientArtist = function(){
 // accepts the FF arguments: "genre" which is a string.
 app.genreFinder = function(genre){
 	// array of artists by genre 
-
+	var foundGenre = "noGenre";
+	var artistsByGenre = {
+		noGenre: [
+		"absolutely free",	
+		"Bell Orchestre",	
+		"andy kim",	
+		"Absolutely free",	
+		"cold specks",	
+		"Torres",	
+		"Feist",	
+		"The Drums",	
+		"tei shi",	
+		"kevin drew",	
+		"Röyksopp"
+		],
+		test1:[
+		]
+	};
 	
-	var foundGenre = genre;
+	
+	console.log(Object.keys(artistsByGenre));
 	for (var prop in artistsByGenre){
-		if(artistsByGenre.hasOwnProperty(prop)){
-			if(x[prop]===foundGenre){
-				console.log("found it!");
-			}
-		}
+		if(prop === "noGenre"){
+			console.log("yes!")
+		} console.log("no");
 	}
 };
 
 
 
 app.init = function(){
-	app.searchArtist();
-	app.getGenre();
-	app.genreDropdown();
+	// app.searchArtist();
+	// app.getGenre();
+	// app.genreDropdown();
+	app.genreFinder()
 };
 
 $(document).ready(function(){
