@@ -37,18 +37,34 @@ app.clientArtist = function(){
 		"Bishop Morocco","Black English","Bloc Party","Broken Social Scene","Calvin Love",
 		"Charles Spearin","Chikita Violenta","Chilly Gonzales","Cold Specks","Dan Mangan + Blacksmith",
 		"Deer Tick","Eight and a Half","Farao","Feist","Fucked Up","Gold and Youth",
-		"Gord Downie, The Sadies, And The Conquering Sun","Hayden","In The Valley Below"
-		"Jason Collett","Kevin Drew","Los Campesinos!","Lowell","Memphis","Mia Maestro"
+		"Gord Downie, The Sadies, And The Conquering Sun","Hayden","In The Valley Below",
+		"Jason Collett","Kevin Drew","Los Campesinos!","Lowell","Memphis","Mia Maestro",
 		"Moby","No Joy","Ra Ra Riot","Reuben And The Dark","Rey Pila","Royksopp",
 		"Royksopp and Robyn","Sally Seltmann","Snowblink","Still Life Still",
 		"Tei Shi","The Cribs","The Darcys","The Drums","Timber Timbre","Tobias Jesso Jr",
 		"Torres","Tricky","TR/ST","WIN WIN","Years","Zeus","Zulu Winter"
 	]; //end of array of the list of artists name
-} //app.clientArtist function ends here
+}; //app.clientArtist function ends here
+
+//function to search through list of genres, and their corresponding artists
+//accepts dot notation, with the final list of artists being contained in arrays for acccess/ randomization
+// accepts the FF arguments: "genre" which is a string.
+app.genreFinder = function(genre){
+	// array of artists by genre here
+	var foundGenre = genre;
+	for (var prop in artistsByGenre){
+		if(artistsByGenre.hasOwnProperty(prop)){
+			if(x[prop]===foundGenre){
+				console.log("found it!");
+			}
+		}
+	}
+};
 
 app.init = function(){
 	app.searchArtist();
 	app.getGenre();
+
 };
 
 $(document).ready(function(){
