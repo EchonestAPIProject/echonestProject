@@ -12,6 +12,7 @@ app.searchArtist = function(){
 	    app.getGenre(app.searchQuery);
             app.SimGenre(app.searchQuery);
 
+
 	}); // search_form click fuction end here
 
 } //app.searchArtist end here
@@ -37,6 +38,8 @@ app.getGenre = function(query){
 
 
 // pull for similar Genres, outputs array in order of similarity
+// i.e.
+var newGenreList = [];
 app.SimGenre = function (genre){
     $.ajax({
         url: genreURL,
@@ -49,6 +52,12 @@ app.SimGenre = function (genre){
         },
         success: function (simgen){
             console.log(simgen.response.genres);
+            var a = simgen.response.genres;
+            newGenreList = [];
+            for (var i=0; i<a.length; i++){
+                newGenreList.push(a[i].name);
+                // console.log (a[i].name);
+            };
         },
         fail: function (){
             console.log("fail");
