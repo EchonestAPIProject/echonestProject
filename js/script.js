@@ -84,7 +84,8 @@ app.genreDropdown = function(genreList){
 		$(".search_dropdown").append($listItem);
 
 	}); //end of each function
-	app.genreSelected();
+	
+
 } // app.henreDropdown end here.
 
 //function to store the value from the drop down list selection
@@ -112,8 +113,7 @@ app.clientArtist = function(){
 app.init = function(){
 	app.searchArtist();
 	app.getGenre();
-	app.genreDropdown();
-	// app.genreSelected();
+	app.genreSelected();
 };
 
 $(document).ready(function(){
