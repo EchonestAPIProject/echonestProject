@@ -84,7 +84,9 @@ app.clientArtist = function(){
 //accepts dot notation, with the final list of artists being contained in arrays for acccess/ randomization
 // accepts the FF arguments: "genre" which is a string.
 app.genreFinder = function(genre){
-	// array of artists by genre here
+	// array of artists by genre 
+
+	
 	var foundGenre = genre;
 	for (var prop in artistsByGenre){
 		if(artistsByGenre.hasOwnProperty(prop)){
