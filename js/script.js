@@ -105,7 +105,92 @@ app.genreSelected = function(){
 
 
 //this function is to check the genre for the A&C artists
-
+//function to search through list of genres, and their corresponding artists
+//accepts dot notation, with the final list of artists being contained in arrays for acccess/ randomization
+// accepts the FF arguments: "genre" which is a string.
+app.genreFinder = function(genre){
+	// array of artists by genre 
+	var foundGenre = "noGenre";
+	var artistsByGenre = {
+		noGenre: [
+		"absolutely free",	
+		"Bell Orchestre",	
+		"andy kim",	
+		"Absolutely free",	
+		"cold specks",	
+		"Torres",	
+		"Feist",	
+		"The Drums",	
+		"tei shi",	
+		"kevin drew",	
+		"Röyksopp"
+		],
+		shiver pop:[
+		"absolutely free",	"win win",	"zulu winter"
+		],
+		indie:[
+		"Amy Millan",	"bishop Morocco",	"Bloc Party",	"broken social scene",	"Dan Mangan",	"deer tick",	"Feist",	"Hayden",	"Years",	"zulu winter",	"still life still",	"",	"Los Campesinos!",	"Memphis",	"the cribs"
+		],
+		canadian indie:[
+		"Amy Millan",	"Jason Collett",	"kevin drew",	"Los Campesinos!"	
+		],
+		lilith	"Amy Millan",
+		indie fuzzpop	"bishop Morocco",	"bishop Morocco",
+		rock	"Feist",	"Bell Orchestre",	"Bloc Party",	"the cribs",
+		post rock "Bell Orchestre",
+		jazz	"BADBADNOTGOOD",
+		dark jazz	"BADBADNOTGOOD",
+		alternative	"BADBADNOTGOOD",	"deer tick",	"Sally Seltman",
+		hip-hop	"BADBADNOTGOOD",	"zeus",
+		bubblegum pop	"andy kim",
+		lo-fi	"broken social scene",	"Feist",	"Hayden",	"kevin drew",
+		chamber pop	"broken social scene", "Hayden",
+		noise pop	"broken social scene",	"Torres",	"The Drums",	"Los Campesinos!",	"no joy",
+		neo-psychedelic	"broken social scene",
+		nu gaze	"broken social scene",	"The Drums",
+		indie folk	"broken social scene", "Hayden",
+		slow core	"broken social scene",	"Feist",	"Hayden",
+		freak folk	"broken social scene",	"deer tick",	"Timber Timbre",
+		indietronica	"broken social scene",	"The Drums",	"ra ra riot",
+		latin	"Chikita Violenta",	"rey pila",
+		electronica	"Chikita Violenta",	"moby",
+		mexican	"Chikita Violenta",	"rey pila",
+		canadian	"Chikita Violenta",	"Dan Mangan",	"still life still",
+		folk	"Dan Mangan",	"deer tick",
+		folk christmas	"deer tick",	"Feist",
+		folk christmas	"deer tick",	"Feist",	
+		indie pop	"Feist",	"kevin drew",	"ra ra riot",
+		garage	"Gold & Youth",
+		speed garage	"Gold & Youth",
+		metal	"Fucked Up",
+		punk	"Fucked Up",	"The Drums",
+		hardcore	"Fucked Up",
+		post-hardcore	"Fucked Up",
+		electronic	"Tricky",	"Röyksopp",
+		chill	"Tricky",	"The Drums",	"Röyksopp",
+		trip hop	"Tricky",
+		grave wave	"Trust",
+		polish	"zeus",
+		shimmer pop	"zulu winter",
+		dance-punk	"The Drums",	"Röyksopp",
+		dance	"The Drums",
+		indie rock	"Los Campesinos!",
+		ensemble	"lowell",
+		wind ensemble	"lowell",
+		big beat	"moby",
+		piano	"ra ra riot",
+		australian	"Sally Seltman",
+		britpop	"the cribs",
+	};
+	
+	
+	console.log(Object.keys(artistsByGenre));
+	for (var prop in artistsByGenre){
+		if(prop === "noGenre"){
+			console.log("yes!")
+		} console.log("no");
+	}
+};
 
 
 
