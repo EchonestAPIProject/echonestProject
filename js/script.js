@@ -88,8 +88,9 @@ app.genreDropdown = function(genreList){
 
 	}); //end of each function
 	
-
 } // app.henreDropdown end here.
+
+
 
 //function to store the value from the drop down list selection
 
