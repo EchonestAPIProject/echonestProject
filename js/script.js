@@ -199,6 +199,10 @@ app.genreMatcher = function(genre){
 };
 
 
+app.addSimGen = function(genre){
+    if 
+}
+
 
 app.init = function(){
     app.searchArtist();
