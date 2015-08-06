@@ -10,7 +10,6 @@ app.searchArtist = function(){
 		e.preventDefault();
 		app.searchQuery = $(".search_field").val();
 	    app.getGenre(app.searchQuery);
-        app.SimGenre(app.searchQuery);
         $(".search_field").val("");
 
 
@@ -22,7 +21,7 @@ app.searchArtist = function(){
 app.getGenre = function(query){
 	$.ajax({
 		url: "http://developer.echonest.com/api/v4/artist/search?",
-		type: "GET",
+	    type: "GET",
 		dataType: 'json',
 		data:{
 			api_key:apikeyAngus,
@@ -60,6 +59,7 @@ app.SimGenre = function (genre){
             newGenreList = [];
             for (var i=0; i<a.length; i++){
                 newGenreList.push(a[i].name);
+                
                 // console.log (a[i].name);
             };
         },
@@ -97,7 +97,8 @@ app.genreSelected = function(){
 		e.preventDefault();
 		app.genreListA = $(this).val();
 		// console.log(app.searchQuery);
-		console.log(app.genreListA);
+	    console.log(app.genreListA);
+            app.SimGenre(app.genreListA);
 
 	});
 
@@ -119,6 +120,5 @@ app.init = function(){
 $(document).ready(function(){
   app.init();
 });
-
 
  
