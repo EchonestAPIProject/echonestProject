@@ -15,8 +15,7 @@ app.searchArtist = function(){
             
             
             $(".search_field").val("");
-            
-
+            	
 
 	}); // search_form click fuction end here
 
@@ -36,7 +35,8 @@ app.getGenre = function(query){
 		},
 	    success: function(artist){
 		// console.log(artist.response.artists[0].genres);
-		app.genreDropdown(artist.response.artists[0].genres);
+		// app.genreDropdown(artist.response.artists[0].genres);
+		app.genreRadioButtons(artist.response.artists[0].genres);
 		app.SimGenre(artist.response.artists[0].genres[1].name);
 		} //end of success function
 
@@ -74,35 +74,47 @@ app.SimGenre = function (genre){
     });
 }
 
+//function to return a radio button list of genre based on user's artist search
 
-
-
-
-
-//function to return a drop down list of genre based on user's artist search
-app.genreDropdown = function(genreList){
-	$(".search_dropdown").empty();
+// function to create radiobuttons with labels
+app.genreRadioButtons = function(genreList){
+	$(".search_radioButtons").empty();
 	$.each(genreList, function(index,item){
 		console.log(item.name);
-		var $listItem = $("<option>");
-		$listItem.text(item.name);
-		$listItem.attr("value", item.name);
-		$(".search_dropdown").append($listItem);
+		// JQuery object to create radio buttons
+		var $radioItem = $("<input>");
+
+		$radioItem.attr("name", "artistRadioButtons");
+		$radioItem.attr("type", "radio");
+		$radioItem.attr("id", item.name + " radioButton");
+		$radioItem.attr("value", item.name);
+		// JQuery object to create radio button LABELS
+		var $labelItem = $("<label>");
+		$labelItem.addClass("artistLabel");
+		$labelItem.attr("for", item.name + " radioButton");
+		$labelItem.attr("value", item.name);
+		$labelItem.text(item.name);
+		// final construction of HTML scaffold
+		$labelItem.append($radioItem);
+		// print scaffold to matching div
+		$(".search_radioButtons").append($labelItem);
 
 	}); //end of each function
-	
-} // app.henreDropdown end here.
 
+};
+
+
+//
 
 
 //function to store the value from the drop down list selection
 
 app.genreSelected = function(){
 
-	$(".search_dropdown").on("change", function(e){
+	$(".search_radioButtons").on("change", function(e){
 		app.genreListA = "";
 		e.preventDefault();
-		app.genreListA = $(this).val();
+		app.genreListA = $("input[name='artistRadioButtons']:checked").val();
 		// console.log(app.searchQuery);
 	    console.log(app.genreListA);
             app.SimGenre(app.genreListA);
@@ -223,8 +235,7 @@ app.artistThrower = function (genreList){// accepts an array and checks if it ha
 		
 		// app.artistsArray = genreList;
 		// console.log("artists are less than three")
-
-
+}
 //randomNoGenre function
 
 app.randomNoGenre = function (list){
@@ -253,19 +264,13 @@ app.randomNoGenre = function (list){
 }
 
 
-
-
 app.init = function(){
     app.searchArtist();
     app.genreSelected();
     // app.randomNoGenre();
     // app.genreMatcher();
-
-
 };
 
 $(document).ready(function(){
   app.init();
 });
-
- 
