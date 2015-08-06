@@ -125,7 +125,7 @@ app.genreMatcher = function(genre){
 	var foundGenre = genre;
 
 	var artistsByGenre = {
-		noGenre: [
+	    noGenre: [
 		"absolutely free",	
 		"Bell Orchestre",	
 		"andy kim",	
@@ -137,9 +137,9 @@ app.genreMatcher = function(genre){
 		"tei shi",	
 		"kevin drew",	
 		"Royksopp"
-		],
-		"shiver pop":["absolutely free",	"win win",	"zulu winter"],
-		"indie":["Amy Millan",	"bishop Morocco",	"Bloc Party",	"broken social scene",	"Dan Mangan",	"deer tick",	"Feist",	"Hayden",	"Years",	"zulu winter",	"still life still",	"Los Campesinos!",	"Memphis",	"the cribs"],
+	    ],
+	    "shiver pop":["absolutely free",	"win win",	"zulu winter"],
+	    "indie":["Amy Millan",	"bishop Morocco",	"Bloc Party",	"broken social scene",	"Dan Mangan",	"deer tick",	"Feist",	"Hayden",	"Years",	"zulu winter",	"still life still",	"Los Campesinos!",	"Memphis",	"the cribs"],
 		"canadian indie":["Amy Millan",	"Jason Collett",	"kevin drew",	"Los Campesinos!"	],
 		lilith:	["Amy Millan"],
 		"indie fuzzpop":	["bishop Morocco",	"bishop Morocco"],
@@ -152,8 +152,8 @@ app.genreMatcher = function(genre){
 		"bubblegum pop":	["andy kim"],
 		lofi:	["broken social scene",	"Feist",	"Hayden",	"kevin drew"],
 		"chamber pop":	["broken social scene", "Hayden"],
-		"noise pop":	["broken social scene",	"Torres",	"The Drums",	"Los Campesinos!",	"no joy"],
-		"neo psychedelic":	["broken social scene"],
+	    "noise pop":	["broken social scene",	"Torres",	"The Drums",	"Los Campesinos!",	"no joy"],
+	    "neo psychedelic":	["broken social scene"],
 		"nu gaze":	["broken social scene",	"The Drums"],
 		"indie folk":	["broken social scene", "Hayden"],
 		"slow core":	["broken social scene",	"Feist",	"Hayden"],
@@ -202,27 +202,27 @@ app.genreMatcher = function(genre){
 };
 
 app.artistThrower = function (genreList){// accepts an array and checks if it has more than three artists. returns three artists. (at random)
-		app.artistsArray = [];
-		
-		if(genreList.length > 3){
-			console.log("artists are more than three");
-			for (var i = 0; i < 3; i++){
-				var num = (Math.floor(Math.random() * genreList.length))
-				// var name = genreList.splice(num, 1)
-				var name = genreList[num];
-				app.artistsArray.push(name)
-				console.log(app.artistsArray);	
-			}
-			console.log("returning three random artists!");
-			
-			// return names anyway
-		} else {
-			app.artistsArray = genreList;
-		    console.log(app.artistsArray)
-		};
+    app.artistsArray = [];
     
-		// app.artistsArray = genreList;
-		// console.log("artists are less than three")
+    if(genreList.length > 3){
+	console.log("artists are more than three");
+	for (var i = 0; i < 3; i++){
+	    var num = (Math.floor(Math.random() * genreList.length))
+	    // var name = genreList.splice(num, 1)
+	    var name = genreList[num];
+	    app.artistsArray.push(name)
+	    console.log(app.artistsArray);	
+	       
+	console.log("returning three random artists!");
+	
+	// return names anyway
+    } else {
+	app.artistsArray = genreList;
+	console.log(app.artistsArray)
+    };
+    
+    // app.artistsArray = genreList;
+    // console.log("artists are less than three")
 
 
 };
