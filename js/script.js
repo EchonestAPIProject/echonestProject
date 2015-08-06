@@ -10,6 +10,7 @@ app.searchArtist = function(){
 		e.preventDefault();
 		app.searchQuery = $(".search_field").val();
 	    app.getGenre(app.searchQuery);
+            
         $(".search_field").val("");
 
 
@@ -24,14 +25,14 @@ app.getGenre = function(query){
 	    type: "GET",
 		dataType: 'json',
 		data:{
-			api_key:apikeyAngus,
-			format:"json",
-			name:query,
-			bucket: "genre"
+		    api_key:apikeyAngus,
+		    format:"json",
+		    name:query,
+		    bucket: "genre",
 		},
-		success: function(artist){
-			// console.log(artist.response.artists[0].genres);
-			app.genreDropdown(artist.response.artists[0].genres);
+	    success: function(artist){
+		// console.log(artist.response.artists[0].genres);
+		app.genreDropdown(artist.response.artists[0].genres);
 		
 		} //end of success function
 
@@ -68,6 +69,7 @@ app.SimGenre = function (genre){
         }
     });
 }
+
 
 
 
