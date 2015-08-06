@@ -187,9 +187,40 @@ app.genreFinder = function(genre){
 	}
 };
 
+//This will get the detail artist data from the final result artist 
 
+app.GetDetailArtist = function(finalResult){
+	$.each(finalResult, function(index,item){
+ 	$.ajax(
+
+ 		url: "http://developer.echonest.com/api/v4/artist/search?",
+ 		type: "GET",
+ 		dataType: 'json',
+ 		data:{
+ 			api_key:apikeyAngus,
+ 			format:"json",
+ 			name:item,
+ 			bucket: "biographies",
+ 			bucket: "images",
+ 			bucket: "discovery",
+ 			bucket: "songs",
+ 			bucket:"years_active",
+
+ 		},
+ 		success: function(detail){
+ 			// console.log(artist.response.artists[0].genres);
+ 			console.log(detail);
+ 		
+ 		} //end of success function
+
+ 		); //end of ajax
+ }); // end of each function
+
+}  // end of app.GetDetailArtist
 
 app.init = function(){
+	app.searchArtist();
+	app.genreSelected();
 
 };
 
