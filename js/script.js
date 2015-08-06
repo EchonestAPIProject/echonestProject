@@ -133,8 +133,15 @@ app.genreFinder = function(genre){
 		"kevin drew",	
 		"Röyksopp"
 		],
-		test1:[
-		]
+		shiver pop:[
+		"absolutely free",	"win win",	"zulu winter"
+		],
+		indie:[
+		"Amy Millan",	"bishop Morocco",	"Bloc Party",	"broken social scene",	"Dan Mangan",	"deer tick",	"Feist",	"Hayden",	"Years",	"zulu winter",	"still life still",	"",	"Los Campesinos!",	"Memphis",	"the cribs"
+		],
+		canadian indie:[
+		"Amy Millan",	"Jason Collett",	"kevin drew",	"Los Campesinos!"	
+		]	
 	};
 	
 	
