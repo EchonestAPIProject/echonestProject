@@ -8,6 +8,7 @@ var app = {};
 //search artist field functions
 
 app.searchArtist = function(){
+
     $(".search_form").on("submit", function(e){
 	e.preventDefault();
 	app.searchQuery = $(".search_field").val();
@@ -24,6 +25,7 @@ app.searchArtist = function(){
 
 //get input artist's genre funtion
 app.getGenre = function(query){
+
     $.ajax({
 	url: "http://developer.echonest.com/api/v4/artist/search?",
 	type: "GET",
@@ -42,6 +44,7 @@ app.getGenre = function(query){
 
 
     }); //ajax to search for inputed artist's genre.
+
 } //app.getGenre funcion end here
 
 
@@ -74,38 +77,53 @@ app.SimGenre = function (genre){
     });
 }
 
+//function to return a radio button list of genre based on user's artist search
+
+<<<<<<< HEAD
+// function to create radiobuttons with labels
+app.genreRadioButtons = function(genreList){
+	$(".search_radioButtons").empty();
+	$.each(genreList, function(index,item){
+		console.log(item.name);
+		// JQuery object to create radio buttons
+		var $radioItem = $("<input>");
+
+		$radioItem.attr("name", "artistRadioButtons");
+		$radioItem.attr("type", "radio");
+		$radioItem.attr("id", item.name + " radioButton");
+		$radioItem.attr("value", item.name);
+		// JQuery object to create radio button LABELS
+		var $labelItem = $("<label>");
+		$labelItem.addClass("artistLabel");
+		$labelItem.attr("for", item.name + " radioButton");
+		$labelItem.attr("value", item.name);
+		$labelItem.text(item.name);
+		// final construction of HTML scaffold
+		$labelItem.append($radioItem);
+		// print scaffold to matching div
+		$(".search_radioButtons").append($labelItem);
+
+	}); //end of each function
+=======
+
+};
 
 
+//
 
-
-
-//function to return a drop down list of genre based on user's artist search
-app.genreDropdown = function(genreList){
-    $(".search_dropdown").empty();
-    $.each(genreList, function(index,item){
-	console.log(item.name);
-	var $listItem = $("<option>");
-	$listItem.text(item.name);
-	$listItem.attr("value", item.name);
-	$(".search_dropdown").append($listItem);
-
-    }); //end of each function
-    
-
-} // app.henreDropdown end here.
 
 //function to store the value from the drop down list selection
 
 app.genreSelected = function(){
 
-    $(".search_dropdown").on("change", function(e){
-	app.genreListA = "";
-	e.preventDefault();
-	app.genreListA = $(this).val();
-	// console.log(app.searchQuery);
-	console.log(app.genreListA);
-        app.SimGenre(app.genreListA);
 
+	$(".search_radioButtons").on("change", function(e){
+		app.genreListA = "";
+		e.preventDefault();
+		app.genreListA = $("input[name='artistRadioButtons']:checked").val();
+		// console.log(app.searchQuery);
+	    console.log(app.genreListA);
+            app.SimGenre(app.genreListA);
 
 	//calling.genreMatcher here
 	app.genreMatcher(app.genreListA);
@@ -220,6 +238,7 @@ app.genreMatcher = function(genre){
     }
 };
 
+
 app.artistThrower = function (genreList,counter){// accepts an array and checks if it has more than three artists. returns three artists. (at random)
     app.artistsArray = [];
     
@@ -268,7 +287,6 @@ app.artistThrower = function (genreList,counter){// accepts an array and checks 
 // console.log("artists are less than three")
 
 
-
 //randomNoGenre function
 
 app.randomNoGenre = function (list){
@@ -296,21 +314,17 @@ app.randomNoGenre = function (list){
 
 }
 
-
-
-
-
 app.init = function(){
     app.searchArtist();
     app.genreSelected();
     // app.randomNoGenre();
     // app.genreMatcher();
-
-
 };
 
 $(document).ready(function(){
+
     app.init();
 });
+
 
 
