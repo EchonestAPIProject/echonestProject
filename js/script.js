@@ -4,6 +4,8 @@ var genreURL = "http://developer.echonest.com/api/v4/genre/similar";
 
 var app = {};
 
+app.artistsArray=[];
+
 //search artist field functions
 
 app.searchArtist = function(){
@@ -120,7 +122,7 @@ app.genreSelected = function(){
 app.genreMatcher = function(genre){
 	// array of artists by genre 
 	// regex to strip whitespaces from genre
-	var foundGenre = genre.replace(/(^\s+|\s+$)/g,'');
+	var foundGenre = genre;
 
 	var artistsByGenre = {
 		noGenre: [
@@ -136,55 +138,55 @@ app.genreMatcher = function(genre){
 		"kevin drew",	
 		"Royksopp"
 		],
-		shiverpop:["absolutely free",	"win win",	"zulu winter"],
-		indie:["Amy Millan",	"bishop Morocco",	"Bloc Party",	"broken social scene",	"Dan Mangan",	"deer tick",	"Feist",	"Hayden",	"Years",	"zulu winter",	"still life still",	"",	"Los Campesinos!",	"Memphis",	"the cribs"],
-		canadianindie:["Amy Millan",	"Jason Collett",	"kevin drew",	"Los Campesinos!"	],
+		"shiver pop":["absolutely free",	"win win",	"zulu winter"],
+		"indie":["Amy Millan",	"bishop Morocco",	"Bloc Party",	"broken social scene",	"Dan Mangan",	"deer tick",	"Feist",	"Hayden",	"Years",	"zulu winter",	"still life still",	"Los Campesinos!",	"Memphis",	"the cribs"],
+		"canadian indie":["Amy Millan",	"Jason Collett",	"kevin drew",	"Los Campesinos!"	],
 		lilith:	["Amy Millan"],
-		indiefuzzpop:	["bishop Morocco",	"bishop Morocco"],
+		"indie fuzzpop":	["bishop Morocco",	"bishop Morocco"],
 		rock:	["Feist",	"Bell Orchestre",	"Bloc Party",	"the cribs"],
-		postrock: ["Bell Orchestre"],
+		"post rock": ["Bell Orchestre"],
 		jazz:	["BADBADNOTGOOD"],
-		darkjazz:	["BADBADNOTGOOD"],
+		"dark jazz":	["BADBADNOTGOOD"],
 		alternative:	["BADBADNOTGOOD",	"deer tick",	"Sally Seltman"],
-		hiphop:	["BADBADNOTGOOD",	"zeus"],
-		bubblegumpop:	["andy kim"],
+		"hip hop":	["BADBADNOTGOOD",	"zeus"],
+		"bubblegum pop":	["andy kim"],
 		lofi:	["broken social scene",	"Feist",	"Hayden",	"kevin drew"],
-		chamberpop:	["broken social scene", "Hayden"],
-		noisepop:	["broken social scene",	"Torres",	"The Drums",	"Los Campesinos!",	"no joy"],
-		neopsychedelic:	["broken social scene"],
-		nugaze:	["broken social scene",	"The Drums"],
-		indiefolk:	["broken social scene", "Hayden"],
-		slowcore:	["broken social scene",	"Feist",	"Hayden"],
-		freakfolk:	["broken social scene",	"deer tick",	"Timber Timbre"],
+		"chamber pop":	["broken social scene", "Hayden"],
+		"noise pop":	["broken social scene",	"Torres",	"The Drums",	"Los Campesinos!",	"no joy"],
+		"neo psychedelic":	["broken social scene"],
+		"nu gaze":	["broken social scene",	"The Drums"],
+		"indie folk":	["broken social scene", "Hayden"],
+		"slow core":	["broken social scene",	"Feist",	"Hayden"],
+		"freak folk":	["broken social scene",	"deer tick",	"Timber Timbre"],
 		indietronica:	["broken social scene",	"The Drums",	"ra ra riot"],
 		latin:	["Chikita Violenta",	"rey pila"],
 		electronica:	["Chikita Violenta",	"moby"],
 		mexican:	["Chikita Violenta",	"rey pila"],
 		canadian:	["Chikita Violenta",	"Dan Mangan",	"still life still"],
 		folk:	["Dan Mangan",	"deer tick"],
-		folkchristmas:	["deer tick",	"Feist"],
-		indiepop:	["Feist",	"kevin drew",	"ra ra riot"],
+		"folk christmas":	["deer tick",	"Feist"],
+		"indie pop":	["Feist",	"kevin drew",	"ra ra riot"],
 		garage:	["Gold & Youth"],
-		speedgarage:	["Gold & Youth"],
+		"speed garage":	["Gold & Youth"],
 		metal:	["Fucked Up"],
 		punk:	["Fucked Up",	"The Drums"],
 		hardcore:	["Fucked Up"],
-		posthardcore:	["Fucked Up"],
-		electronic:	["Tricky",	"Röyksopp"],
-		chill:	["Tricky",	"The Drums",	"Röyksopp"],
-		triphop:	["Tricky"],
-		gravewave:	["Trust"],
-		polish:	["zeus"],
-		shimmerpop:	["zulu winter"],
-		dancepunk:	["The Drums",	"Röyksopp"],
-		dance:	["The Drums"],
-		indierock:	["Los Campesinos!"],
+		"post hardcore":	["Fucked Up"],
+		"electronic":	["Tricky",	"Röyksopp"],
+		"chill":	["Tricky",	"The Drums",	"Röyksopp"],
+		"trip hop":	["Tricky"],
+		"grave wave":	["Trust"],
+		"polish":	["zeus"],
+		"shimmer pop":	["zulu winter"],
+		"dance punk":	["The Drums",	"Röyksopp"],
+		"dance":	["The Drums"],
+		"indie rock":	["Los Campesinos!"],
 		ensemble:	["lowell"],
-		windensemble:	["lowell"],
-		bigbeat:	["moby"],
+		"wind ensemble":	["lowell"],
+		"big beat":	["moby"],
 		piano:	["ra ra riot"],
 		australian:	["Sally Seltman"],
-		britpop:	["the cribs"]
+		"brit pop":	["the cribs"]
 	};
 	
 	console.log(Object.keys(artistsByGenre));
@@ -194,14 +196,36 @@ app.genreMatcher = function(genre){
 			console.log(tempName)
 			// this part of the function can output an array for further processing.
 			// placeholder for next function
-		} console.log("No matches within the A n C catalog");
+			app.artistThrower(tempName);
+		} 
 	}
 };
 
+app.artistThrower = function (genreList){// accepts an array and checks if it has more than three artists. returns three artists. (at random)
+		app.artistsArray = [];
+		
+		if(genreList.length > 3){
+			console.log("artists are more than three");
+			for (var i = 0; i < 3; i++){
+				var num = (Math.floor(Math.random() * genreList.length))
+				// var name = genreList.splice(num, 1)
+				var name = genreList[num];
+				app.artistsArray.push(name)
+				console.log(app.artistsArray);	
+			}
+			console.log("returning three random artists!");
+			
+			// return names anyway
+		} else {
+			app.artistsArray = genreList;
+		    console.log(app.artistsArray)
+		};
+    
+		// app.artistsArray = genreList;
+		// console.log("artists are less than three")
 
-app.addSimGen = function(genre){
-    if 
-}
+
+};
 
 
 app.init = function(){
