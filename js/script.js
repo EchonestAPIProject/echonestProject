@@ -1,4 +1,5 @@
 var apikeyAngus = "PV9NAG2OVN1SOTSIA";
+var apikeyMiguel= "IIDEXTACNIDGJQBQQ";
 var genreURL = "http://developer.echonest.com/api/v4/genre/similar";
 
 var app = {};
@@ -105,6 +106,8 @@ app.genreSelected = function(){
             app.SimGenre(app.genreListA);
 
 
+		//calling.genreMatcher here
+		app.genreMatcher(app.genreListA);
 	});
 
 } // end of app.genreSelected
@@ -114,9 +117,11 @@ app.genreSelected = function(){
 //function to search through list of genres, and their corresponding artists
 //accepts dot notation, with the final list of artists being contained in arrays for acccess/ randomization
 // accepts the FF arguments: "genre" which is a string.
-app.genreFinder = function(genre){
+app.genreMatcher = function(genre){
 	// array of artists by genre 
-	var foundGenre = "rock";
+	// regex to strip whitespaces from genre
+	var foundGenre = genre.replace(/(^\s+|\s+$)/g,'');
+
 	var artistsByGenre = {
 		noGenre: [
 		"absolutely free",	
@@ -182,14 +187,14 @@ app.genreFinder = function(genre){
 		britpop:	["the cribs"]
 	};
 	
-	console.log(artistsByGenre.rock);
 	console.log(Object.keys(artistsByGenre));
 	for (var prop in artistsByGenre){
 		if(prop === foundGenre){
 			var tempName = artistsByGenre[prop]
 			console.log(tempName)
 			// this part of the function can output an array for further processing.
-		} console.log("not a match");
+			// placeholder for next function
+		} console.log("No matches within the A n C catalog");
 	}
 };
 
@@ -198,6 +203,8 @@ app.genreFinder = function(genre){
 app.init = function(){
     app.searchArtist();
     app.genreSelected();
+
+
 };
 
 $(document).ready(function(){
