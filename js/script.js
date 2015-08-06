@@ -11,6 +11,7 @@ app.searchArtist = function(){
 		app.searchQuery = $(".search_field").val();
 	    app.getGenre(app.searchQuery);
         app.SimGenre(app.searchQuery);
+        $(".search_field").val("");
 
 
 	}); // search_form click fuction end here
@@ -30,10 +31,9 @@ app.getGenre = function(query){
 			bucket: "genre"
 		},
 		success: function(artist){
-			console.log(artist.response.artists[0].genres);
+			// console.log(artist.response.artists[0].genres);
 			app.genreDropdown(artist.response.artists[0].genres);
-			app.genreSelected();
-
+		
 		} //end of success function
 
 
@@ -75,6 +75,7 @@ app.SimGenre = function (genre){
 
 //function to return a drop down list of genre based on user's artist search
 app.genreDropdown = function(genreList){
+	$(".search_dropdown").empty();
 	$.each(genreList, function(index,item){
 		console.log(item.name);
 		var $listItem = $("<option>");
@@ -83,16 +84,20 @@ app.genreDropdown = function(genreList){
 		$(".search_dropdown").append($listItem);
 
 	}); //end of each function
-	app.getGenre(app.searchQuery);
+	
+
 } // app.henreDropdown end here.
 
 //function to store the value from the drop down list selection
 
 app.genreSelected = function(){
+
 	$(".search_dropdown").on("change", function(e){
+		app.genreListA = "";
 		e.preventDefault();
-		app.searchQuery = $(this).val();
-		console.log(app.searchQuery);
+		app.genreListA = $(this).val();
+		// console.log(app.searchQuery);
+		console.log(app.genreListA);
 
 	});
 
@@ -100,66 +105,12 @@ app.genreSelected = function(){
 
 
 //this function is to check the genre for the A&C artists
-app.clientArtist = function(){
 
-	var allArtists = ["Absolutely Free","Amy Millan","Andy Kim","BADBADNOTGOOD","Bell Orchestre",
-		"Bishop Morocco","Black English","Bloc Party","Broken Social Scene","Calvin Love",
-		"Charles Spearin","Chikita Violenta","Chilly Gonzales","Cold Specks","Dan Mangan + Blacksmith",
-		"Deer Tick","Eight and a Half","Farao","Feist","Fucked Up","Gold and Youth",
-		"Moby","No Joy","Ra Ra Riot","Reuben And The Dark","Rey Pila","Royksopp",
-		"Royksopp and Robyn","Sally Seltmann","Snowblink","Still Life Still",
-		"Tei Shi","The Cribs","The Darcys","The Drums","Timber Timbre","Tobias Jesso Jr",
-		"Torres","Tricky","TR/ST","WIN WIN","Years","Zeus","Zulu Winter"
-	]; //end of array of the list of artists name
-}; //app.clientArtist function ends here
-
-//function to search through list of genres, and their corresponding artists
-//accepts dot notation, with the final list of artists being contained in arrays for acccess/ randomization
-// accepts the FF arguments: "genre" which is a string.
-app.genreFinder = function(genre){
-	// array of artists by genre 
-	var foundGenre = "noGenre";
-	var artistsByGenre = {
-		noGenre: [
-		"absolutely free",	
-		"Bell Orchestre",	
-		"andy kim",	
-		"Absolutely free",	
-		"cold specks",	
-		"Torres",	
-		"Feist",	
-		"The Drums",	
-		"tei shi",	
-		"kevin drew",	
-		"Röyksopp"
-		],
-		shiver pop:[
-		"absolutely free",	"win win",	"zulu winter"
-		],
-		indie:[
-		"Amy Millan",	"bishop Morocco",	"Bloc Party",	"broken social scene",	"Dan Mangan",	"deer tick",	"Feist",	"Hayden",	"Years",	"zulu winter",	"still life still",	"",	"Los Campesinos!",	"Memphis",	"the cribs"
-		],
-		canadian indie:[
-		"Amy Millan",	"Jason Collett",	"kevin drew",	"Los Campesinos!"	
-		]	
-	};
-	
-	
-	console.log(Object.keys(artistsByGenre));
-	for (var prop in artistsByGenre){
-		if(prop === "noGenre"){
-			console.log("yes!")
-		} console.log("no");
-	}
-};
 
 
 
 app.init = function(){
-	// app.searchArtist();
-	// app.getGenre();
-	// app.genreDropdown();
-	app.genreFinder()
+
 };
 
 $(document).ready(function(){
