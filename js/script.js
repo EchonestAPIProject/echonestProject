@@ -4,7 +4,6 @@ var genreURL = "http://developer.echonest.com/api/v4/genre/similar";
 
 var app = {};
 
-app.artistsArray=[];
 
 //search artist field functions
 
@@ -188,7 +187,7 @@ app.genreMatcher = function(genre){
 		australian:	["Sally Seltman"],
 		"brit pop":	["the cribs"]
 	};
-	
+	app.randomNoGenre(artistsByGenre.noGenre)
 	console.log(Object.keys(artistsByGenre));
 	for (var prop in artistsByGenre){
 		if(prop === foundGenre){
@@ -224,11 +223,42 @@ app.artistThrower = function (genreList){// accepts an array and checks if it ha
 		// app.artistsArray = genreList;
 		// console.log("artists are less than three")
 
-};
+
+//randomNoGenre function
+
+app.randomNoGenre = function (list){
+	var randomN = Math.floor(Math.random()*list.length);
+	var randomArtist = list[randomN];
+	$.ajaxSettings.traditional = true; //PLEASE DONT TOUCH!!!
+	// var bucket = "biographies&bucket=image&bucket=reviews&bucket=audio&bucket=video&bucket=discovery"
+	$.ajax({
+		url: "http://developer.echonest.com/api/v4/artist/search?",
+	    type: "GET",
+		dataType: 'json',
+		data:{
+		    api_key:apikeyAngus,
+		    format:"json",
+		    name:randomArtist,
+		    bucket: ["images", "biographies", "songs"]
+		},
+	    success: function(artist){
+		console.log(artist);
+		
+		} //end of success function
+
+
+	});
+
+}
+
+
+
 
 app.init = function(){
     app.searchArtist();
     app.genreSelected();
+    // app.randomNoGenre();
+    // app.genreMatcher();
 
 
 };
