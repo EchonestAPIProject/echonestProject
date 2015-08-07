@@ -113,6 +113,7 @@ app.genreRadioButtons = function(genreList){
 
 	}); //end of each function
 
+
 };
 
 
@@ -219,7 +220,7 @@ app.genreMatcher = function(genre){
             if(artistsByGenre[prop].length >= 3){
 	        var tempName = artistsByGenre[prop];
 	        console.log(tempName);
-            app.artistThrower(tempName, 3);
+                app.artistThrower(tempName, 3);
 	        // this part of the function can output an array for further processing.
 	        // placeholder for next function
 	        // app.artistThrower(tempName);
@@ -230,21 +231,21 @@ app.genreMatcher = function(genre){
                 console.log(tempNameinit);
                 for (var i = artistsByGenre[prop].length; i < 3; i++){
                     for (var k = 0; k < app.newGenreList.length; k++){
+                        console.log(artistsByGenre[app.newGenreList[k]])
                         var splicer = artistsByGenre[app.newGenreList[k]]
                         tempName = tempNameinit.concat(splicer);
-                        if (tempNameinit.length >= 3){
+                        if (tempName.length >= 3){
                             console.log(tempName);
                             break;
                         }
                         
                     }
                 }
-            	app.artistThrower(tempNameinit, count);
-            	console.log(tempNameinit, count);    
-            }
-            console.log(tempNameinit);
-            
-		} 
+                console.log(tempName,count);
+                app.artistThrower(tempName,count);
+                
+	    } 
+        }
     }
 };	
 
