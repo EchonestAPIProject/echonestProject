@@ -138,6 +138,19 @@ app.genreSelected = function(){
     });
 } // end of app.genreSelected
 
+
+app.arraytoObjects = function (array,addObject){
+    
+    for (var o = 0; o < array.length; o++){
+        var object = {
+            name: array[o],
+            genre: addObject
+        };
+        array.splice(o,1,object);
+    }
+    
+}
+
 //this function is to check the genre for the A&C artists
 //function to search through list of genres, and their corresponding artists
 //accepts dot notation, with the final list of artists being contained in arrays for acccess/ randomization
@@ -216,24 +229,33 @@ app.genreMatcher = function(genre){
     if (artistsByGenre.hasOwnProperty(foundGenre)){
         for (var prop in artistsByGenre){
 	    if(prop === foundGenre){
-                var tempname = "";
+                var tempName = [];
                 if(artistsByGenre[prop].length >= 3){
 	            tempName = artistsByGenre[prop];
 	            console.log(tempName);
-                    app.artistThrower(tempName, 3);
+                    // array to object conversion
+                    app.arraytoObjects (tempName,foundGenre);
+                    console.log(tempName);
 	            // this part of the function can output an array for further processing.
 	            // placeholder for next function
 	            // app.artistThrower(tempName);
+                    
+                    app.artistThrower(tempName, 3);
                 } else {
                     var tempNameinit = artistsByGenre[prop];
                     var count = artistsByGenre[prop].length;
                     console.log(count);
+                    app.arraytoObjects(tempNameinit,foundGenre); //array to object
+                    
                     console.log(tempNameinit);
                     for (var i = artistsByGenre[prop].length; i < 3; i++){
                         for (var k = 0; k < app.newGenreList.length; k++){
-                            console.log(artistsByGenre[app.newGenreList[k]])
-                            var splicer = artistsByGenre[app.newGenreList[k]]
-                            tempName = tempNameinit.concat(splicer);
+                            if(artistsByGenre.hasOwnProperty(app.newGenreList[k])){
+                                console.log(artistsByGenre[app.newGenreList[k]])
+                                var splicer = artistsByGenre[app.newGenreList[k]]
+                                app.arraytoObjects(splicer,app.newGenreList[k]);
+                                tempName = tempNameinit.concat(splicer);
+                            }
                             if (tempName.length >= 3){
                                 console.log(tempName);
                                 break;
@@ -243,28 +265,40 @@ app.genreMatcher = function(genre){
                     }
                     console.log(tempName,count);
                     app.artistThrower(tempName,count);
-                    
-	        }
-            }
-            
+                }
+            }            
         }
     } else {
         var tempName = [];
+        var count = "";
         console.log(1);
         for (var k = 0; k < app.newGenreList.length; k++){
-            console.log(artistsByGenre[app.newGenreList[k]])
-            var splicer = artistsByGenre[app.newGenreList[k]]
-            tempName = tempName.concat(splicer);
+            if(artistsByGenre.hasOwnProperty(app.newGenreList[k])){
+                console.log(artistsByGenre[app.newGenreList[k]])
+                var splicer = artistsByGenre[app.newGenreList[k]]
+                app.arraytoObjects(splicer,app.newGenreList[k]);
+                tempName = tempName.concat(splicer);
+            }
             if (tempName.length >= 3){
                 console.log(tempName);
+                count = tempName.length;
                 break;
             }
+        
         }
         if (tempName.length < 3){
-            
-        }
-            
-        app.artistThrower(tempName,0);
+            console.log("fill");
+            count = tempName.length;
+            for (var j = 0; j < artistsByGenre.noGenre.length; j++){
+                var noGenreBand = [];
+                noGenreBand.push(artistsByGenre.noGenre[j])
+                app.arraytoObjects(noGenreBand,"noGenre");
+                tempName = tempName.concat(noGenreBand);
+                
+            }
+
+        }            
+        app.artistThrower(tempName,count);
     }
 };	
 
@@ -276,7 +310,6 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
 	console.log("artists are more than three");
 	for (var i = 0; i < 3; i++){
 	    var num = (Math.floor(Math.random() * genreList.length))
-	    // var name = genreList.splice(num, 1)
 	    var name = genreList[num];
 	    app.artistsArray.push(name);
             genreList.splice(num, 1);
@@ -294,7 +327,6 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
         };
         for (var k = app.artistsArray.length; i < 3; i++){
             var num = (Math.floor(Math.random() * genreList.length))
-	    // var name = genreList.splice(num, 1)
 	    var name = genreList[num];
 	    app.artistsArray.push(name)
             genreList.splice(num,1);
@@ -305,42 +337,56 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
 	app.artistsArray = genreList;
 
 	console.log(app.artistsArray)
-        // for (var k = app.artistsArray.length; k < 4; k++){
-        //     for(var i = 0; i < newGenreList.length; i++){
-                
-        //     }
 
-        // }
     }; 
-    app.finalDisplay(app.artistsArray);                         
+    app.finalDetail(app.artistsArray);                         
+                         
+
 }
 
-// display 3 artists on the page
+// get 3 artists on the page
 
-app.finalDisplay = function (artist){
+app.finalDetail = function (artist){
 	console.log(artist);
-	// $.each(artist, function(index,item){
-	// 	    $.ajaxSettings.traditional = true; //PLEASE DONT TOUCH!!!
-	// 	    // var bucket = "biographies&bucket=image&bucket=reviews&bucket=audio&bucket=video&bucket=discovery"
-	// 	    $.ajax({
-	// 		url: "http://developer.echonest.com/api/v4/artist/search?",
-	// 		type: "GET",
-	// 		dataType: 'json',
-	// 		data:{
-	// 		    api_key:apikeyAngus,
-	// 		    format:"json",
-	// 		    name:randomArtist,
-	// 		    bucket: ["images", "biographies", "songs"]
-	// 		},
-	// 		success: function(artist){
-	// 		    console.log(artist);
-			    
-	// 		} //end of success function
+	var finalArray = [];
+	$.each(artist, function(index,item){
+			var Aname = item.name;
+			var Agenre = item.genre;
+			console.log(Aname);
+		    $.ajaxSettings.traditional = true; //PLEASE DONT TOUCH!!!
+		    // var bucket = "biographies&bucket=image&bucket=reviews&bucket=audio&bucket=video&bucket=discovery"
+		    $.ajax({
+			url: "http://developer.echonest.com/api/v4/artist/search?",
+			type: "GET",
+			dataType: 'json',
+			data:{
+			    api_key:apikeyAngus,
+			    format:"json",
+			    name:Aname,
+			    bucket: ["images", "biographies", "songs"],
+			    results:1
+			},
+			success: function(final){
+			    console.log(final.response.artists[0]);
+			finalArray.push(final.response.artists[0]);
+			console.log(finalArray);
+		 app.finalDisplay (finalArray);
+			} //end of success function
 
-	// });
+
+	});
+});
 
 };
 
+//final display is happened
+app.finalDisplay = function(finalD){
+	$.each(finalD, function(index,item){
+			console.log(item);
+
+	});
+
+};
 
 // app.artistsArray = genreList;
 // console.log("artists are less than three")
