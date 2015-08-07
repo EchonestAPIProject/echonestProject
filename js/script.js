@@ -352,6 +352,7 @@ app.finalDetail = function (artist){
 	$.each(artist, function(index,item){
 			var Aname = item.name;
 			var Agenre = item.genre;
+			// app.videoFinder(Aname,index);
 			console.log(Aname);
 		    $.ajaxSettings.traditional = true; //PLEASE DONT TOUCH!!!
 		    // var bucket = "biographies&bucket=image&bucket=reviews&bucket=audio&bucket=video&bucket=discovery"
@@ -363,7 +364,7 @@ app.finalDetail = function (artist){
 			    api_key:apikeyAngus,
 			    format:"json",
 			    name:Aname,
-			    bucket: ["images", "biographies", "songs"],
+			    bucket: ["images", "biographies", "songs", "years_active", "reviews"],
 			    results:1
 			},
 			success: function(final){
@@ -382,7 +383,12 @@ app.finalDetail = function (artist){
 //final display is happened
 app.finalDisplay = function(finalD){
 	$.each(finalD, function(index,item){
-			console.log(item);
+		$(".artist-lists .list:nth-child(" + (index + 1) + ") .artist-name").text(item.name);
+		var src = item.images[0].url;
+		// console.log(src);	
+		$(".artist-lists .list:nth-child(" + (index + 1) + ") .artist-genre").text(item.songs[0].title);
+		$(".artist-lists .list:nth-child(" + (index + 1) + ") .artist-img").attr("src", src);	
+		$(".artist-lists .list:nth-child(" + (index + 1) + ") .artist-bio").text(item.biographies[0].text);
 
 	});
 
