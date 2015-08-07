@@ -1,10 +1,11 @@
 var apikeyAngus = "PV9NAG2OVN1SOTSIA";
 var apikeyMiguel= "IIDEXTACNIDGJQBQQ";
+var apikeyYTMiguel = "AIzaSyBXuGqEKXsnK_sUmyJUB7qe7A6DHCIWGHM";
 var genreURL = "http://developer.echonest.com/api/v4/genre/similar";
 
 var app = {};
 
-//search artist field functions
+
 
 app.searchArtist = function(){
 
@@ -232,7 +233,7 @@ app.genreMatcher = function(genre){
                            
                         }
                     }
-<<<<<<< HEAD
+
                 }
                 	console.log(tempName,count);
                 	app.artistThrower(tempName,count);
@@ -339,6 +340,70 @@ app.randomNoGenre = function (list){
     });
 
 }
+
+// THIS IS THE VIDEO RENDERING AND HTML WRITING BLOCK
+
+app.videoFinder = function(artistName){// accepts an artists (probably hopefully? limited to three)
+	// ajax call is made to find video ids of the artists
+	// throws video id
+	// ID is moved to additional constructor for video URL in youtube
+
+	    $.ajax({
+		url: "https://www.googleapis.com/youtube/v3/search?",
+		type: "GET",
+		dataType: 'json',
+		data:{
+		    key:apikeyYTMiguel,
+		    format:"json",
+		    part:"snippet",
+		    q: artistName,
+		    type: "video"
+		},
+		success: function(results){
+		    //pass video ID here
+		    // returns YT's top hit 
+		    app.videoRenderer(results.items[0].id.videoId);
+		} 
+
+
+	    }); //ajax to search for inputed artist's genre.
+
+};
+
+app.videoRenderer = function (videoID){// accepts video ID
+	var videoURL = ("http://www.youtube.com/embed/"+videoID+"?autoplay=0&origin=http://example.com");
+  	console.log(videoURL); // verifies integrity of video URL defaults to NOT autoplay.
+	$(".search_radioButtons").empty();  	
+
+  	$(".search_radioButtons").empty();
+  	$.each(genreList, function(index,item){
+  		console.log(item.name);
+  		// JQuery object to create radio buttons
+  		var $radioItem = $("<input>");
+
+  		$radioItem.attr("name", "artistRadioButtons");
+  		$radioItem.attr("type", "radio");
+  		$radioItem.attr("id", item.name + " radioButton");
+  		$radioItem.attr("value", item.name);
+  		// JQuery object to create radio button LABELS
+  		var $labelItem = $("<label>");
+  		$labelItem.addClass("artistLabel");
+  		$labelItem.attr("for", item.name + " radioButton");
+  		$labelItem.attr("value", item.name);
+  		$labelItem.text(item.name);
+  		// final construction of HTML scaffold
+  		$labelItem.append($radioItem);
+  		// print scaffold to matching div
+  		$(".search_radioButtons").append($labelItem);
+
+  	}); //end of each function
+
+	// begins concatenation process to create HTML string for iframe
+	// is fired when results are generated (so after user selects the genre)
+	
+};
+
+//END VIDEO CREATION
 
 app.init = function(){
     app.searchArtist();
