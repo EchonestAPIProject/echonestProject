@@ -320,6 +320,11 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
 	    console.log(app.artistsArray);	
 	    
 	    console.log("returning three random artists!");
+
+		//begin creating videos
+		//videoFinder accepts the artists name and adds a flag. 1 - corresponds to first list 2 corresponds to second list, and so on and so forth...
+		
+
         }
 		
 	// return names anyway
@@ -335,9 +340,10 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
             var name = genreList[num];
 	    	genreList.splice(num, 1)
 	    	app.artistsArray.push(name);
+
         }
         console.log(app.artistsArray);
-        
+        //call video renderer here
     } else {
 	app.artistsArray = genreList;
 	console.log(app.artistsArray)
@@ -414,17 +420,24 @@ app.videoFinder = function(artistName){// accepts an artist array (probably hope
 
 
 
-app.videoRenderer = function (videoID){// accepts video ID and flag for where it goes to display?
+app.videoRenderer = function (videoID ){// accepts video ID and flag for where it goes to display?
 	var videoURL = ("http://www.youtube.com/embed/"+videoID+"?autoplay=0&origin=http://example.com");
   	console.log(videoURL); // verifies integrity of video URL defaults to NOT autoplay.
-	$(".artist-lists.first-list.video").empty();  	
+	var videoSelector = "";	
 	// maybe can use if statement here to create variable that selects which selector to use?
+	if (locationFlag ===1 ) {
+		$(".artist-lists.first-list.video").empty(); 
+		var videoSelector 	= ".artist-lists .first-list .video";
+	} else if (locationFlag===2) {
+		$(".artist-lists.first-list.video").empty(); 
+		var videoSelector	= ".artist-lists .second-list .video";
+	} // end of else; final location flag
+		$(".artist-lists.first-list.video").empty(); 
+		var videoSelector	= ".artist-lists .second-list .video";
+	
 
-	var firstVideo 	= ".artist-lists .first-list .video";
-	var secondVideo	= ".artist-lists .second-list .video";
-	var thirdVideo	= ".artist-lists .third-list .video";
+	
 
-  		
   		// JQuery object to create iframe scaffold
   		var $videoItem = $("<iframe>");
   		// begin construction of iframe elements
