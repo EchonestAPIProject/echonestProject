@@ -4,7 +4,17 @@ var genreURL = "http://developer.echonest.com/api/v4/genre/similar";
 
 var app = {};
 
+app.scrollD = function() {
+
+	$(".start").on("click",function(){
+				$('html, body').animate({
+			    scrollTop: $(".search_artist").offset().top
+			}, 2000);
+		});
+}
+
 //search artist field functions
+
 
 app.searchArtist = function(){
 
@@ -99,9 +109,9 @@ app.genreRadioButtons = function(genreList){
 		$labelItem.attr("value", item.name);
 		$labelItem.text(item.name);
 		// final construction of HTML scaffold
-		$labelItem.append($radioItem);
+		// $labelItem.append($radioItem);   commented out by Ivy
 		// print scaffold to matching div
-		$(".search_radioButtons").append($labelItem);
+		$(".search_radioButtons").append($radioItem,$labelItem); //added $radioItem before lable by Ivy
 
 	}); //end of each function
 
@@ -338,6 +348,8 @@ app.randomNoGenre = function (list){
 app.init = function(){
     app.searchArtist();
     app.genreSelected();
+    app.scrollD();
+
     // app.randomNoGenre();
     // app.genreMatcher();
 };

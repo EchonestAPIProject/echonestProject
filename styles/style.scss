@@ -2,7 +2,13 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 
-
+@mixin flex{
+display: -webkit-flex;
+display: -moz-flex;
+display: -ms-flex;
+display: -o-flex;
+display: flex;
+}
 //color variables
 
 $color01: #D2105E;
@@ -11,6 +17,7 @@ $color03: #d2d3d5;
 $color04: #141414;
 $color05:#303030;
 $color06:#fff;
+$color07: #b9d4d3;
 
 //font variables
 
@@ -182,5 +189,68 @@ body{
 	  .search_form{
 	  	@include span-columns(10);
 	  	@include shift(1);
+	  	margin-top: 3%;
+	  	.search_field{
+	  		@include span-columns(8 of 10);
+	  		padding: 1.5% 2%;
+	  		background: $color06;
+	  		font-size: 16px;
+	  		outline: none;
+	  		border:none;
+	  		margin-right: 0;
+	  		// text-transform: capitalize;
+	  		font-weight: 300;
+
+	  	}
+	  	.search_field::-webkit-input-placeholder {
+	  	   color: $color02;
+	  	   font-size: 16px;
+	  		// line-height: 24px;
+	  		font-weight: 300;
+	  	}
+	  	.search_button{
+	  		@include span-columns(1.8 of 10);
+	  		padding: 1.5% 2%;
+	  		background: $color01;
+	  		outline: none;
+	  		border:none;
+	  		text-transform: capitalize;
+	  		font-weight: 300;
+	  		color:$color06;
+	  		font-size: 16px;
+
+	  	}
 	  }
+	  .search_radioButtons{
+	  	clear: both;
+	  	max-width: 750px;
+	  	margin: 3% auto;
+	  	padding: 5% 0;
+		@include flex;
+		-webkit-flex-direction: row;
+		flex-direction: row;
+		-webkit-flex-wrap: wrap;
+		flex-wrap: wrap;
+		justify-content : space-around;
+	  }
+	  input[type=radio]{
+	  	display: none;
+	  }
+	  input[type=radio]:checked + label.artistLabel{
+	  	background: $color01;
+	  	color:$color06;
+	  	box-shadow: inset 1px 1px 3px $color06;
+	  }
+	  .artistLabel{
+	  	display: inline-block;
+	  	padding: 1% 2%;
+	  	color:$color06;
+	  	background-color: $color05;
+	  	margin-bottom: 3%;
+	  	font-size: 14px;
+	  	font-weight: 300;
+	  	box-shadow: 3px 3px 0 0 $color07;
+	  	transition: all 0.3s ease-in;
+	  }
+
 }
