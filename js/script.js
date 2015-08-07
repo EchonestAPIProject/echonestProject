@@ -1,5 +1,6 @@
 var apikeyAngus = "PV9NAG2OVN1SOTSIA";
 var apikeyMiguel= "IIDEXTACNIDGJQBQQ";
+var apikeyYTMiguel = "AIzaSyBXuGqEKXsnK_sUmyJUB7qe7A6DHCIWGHM";
 var genreURL = "http://developer.echonest.com/api/v4/genre/similar";
 
 var app = {};
@@ -14,6 +15,7 @@ app.scrollD = function() {
 }
 
 //search artist field functions
+
 
 
 app.searchArtist = function(){
@@ -75,7 +77,7 @@ app.SimGenre = function (genre){
             app.newGenreList = [];
             for (var i=0; i<a.length; i++){
                 app.newGenreList.push(a[i].name);
-                
+                // console.log(app.newGenreList);
                 // console.log (a[i].name);
             };
             console.log(app.newGenreList);
@@ -85,6 +87,7 @@ app.SimGenre = function (genre){
             console.log("fail");
         }
     });
+
 }
 
 //function to return a radio button list of genre based on user's artist search
@@ -157,18 +160,15 @@ app.arraytoObjects = function (array,addObject){
 // accepts the FF arguments: "genre" which is a string.
 app.genreMatcher = function(genre){
     // array of artists by genre 
-    // regex to strip whitespaces from genre
+
     var foundGenre = genre;
 
     var artistsByGenre = {
 	noGenre: [
-	    "absolutely free",	
 	    "Bell Orchestre",	
 	    "andy kim",	
-	    "Absolutely free",	
 	    "cold specks",	
 	    "Torres",	
-	    "Feist",	
 	    "The Drums",	
 	    "tei shi",	
 	    "kevin drew",	
@@ -260,13 +260,14 @@ app.genreMatcher = function(genre){
                                 console.log(tempName);
                                 break;
                             }
-                            
+                           
                         }
                     }
                     console.log(tempName,count);
                     app.artistThrower(tempName,count);
                 }
             }            
+
         }
     } else {
         var tempName = [];
@@ -310,14 +311,21 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
 	console.log("artists are more than three");
 	for (var i = 0; i < 3; i++){
 	    var num = (Math.floor(Math.random() * genreList.length))
+
 	    var name = genreList[num];
+
 	    app.artistsArray.push(name);
             genreList.splice(num, 1);
+
 	    console.log(app.artistsArray);	
 	    
 	    console.log("returning three random artists!");
+
+		//begin creating videos
+		//videoFinder accepts the artists name and adds a flag. 1 - corresponds to first list 2 corresponds to second list, and so on and so forth...
+
+
         }
-	
 	// return names anyway
     } else if (genreList.length >= 3 && counter < 3){
         for (var i = 0; i < counter; i++){
@@ -327,12 +335,12 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
         };
         for (var k = app.artistsArray.length; i < 3; i++){
             var num = (Math.floor(Math.random() * genreList.length))
-	    var name = genreList[num];
-	    app.artistsArray.push(name)
-            genreList.splice(num,1);
+            var name = genreList[num];
+	    	genreList.splice(num, 1)
+	    	app.artistsArray.push(name);
         }
         console.log(app.artistsArray);
-        
+        //call video renderer here
     } else {
 	app.artistsArray = genreList;
 
@@ -353,6 +361,15 @@ app.finalDetail = function (artist){
 			var Aname = item.name;
 			var Agenre = item.genre;
 			console.log(Aname);
+			console.log(index);
+
+			//VIDEO FINDER FUNCTION
+		
+			app.videoFinder(Aname, index);
+
+			//END VIDEO FINDER FUNCTION
+
+			
 		    $.ajaxSettings.traditional = true; //PLEASE DONT TOUCH!!!
 		    // var bucket = "biographies&bucket=image&bucket=reviews&bucket=audio&bucket=video&bucket=discovery"
 		    $.ajax({
@@ -368,9 +385,9 @@ app.finalDetail = function (artist){
 			},
 			success: function(final){
 			    console.log(final.response.artists[0]);
-			finalArray.push(final.response.artists[0]);
-			console.log(finalArray);
-		 app.finalDisplay (finalArray);
+				finalArray.push(final.response.artists[0]);
+				console.log(finalArray);
+		 		app.finalDisplay (finalArray);
 			} //end of success function
 
 
@@ -383,10 +400,10 @@ app.finalDetail = function (artist){
 app.finalDisplay = function(finalD){
 	$.each(finalD, function(index,item){
 			console.log(item);
-
 	});
 
 };
+
 
 // app.artistsArray = genreList;
 // console.log("artists are less than three")
@@ -418,6 +435,82 @@ app.randomNoGenre = function (list){
     });
 
 }
+
+// THIS IS THE VIDEO RENDERING AND HTML WRITING BLOCK
+
+app.videoFinder = function(artistName, locationFlag){// accepts an artist array (probably hopefully? limited to three)
+	// ajax call is made to find video ids of the artists
+	// throws video id
+	// ID is moved to additional constructor for video URL in youtube
+
+	    $.ajax({
+		url: "https://www.googleapis.com/youtube/v3/search?",
+		type: "GET",
+		dataType: 'json',
+		data:{
+		    key:apikeyYTMiguel,
+		    format:"json",
+		    part:"snippet",
+		    q: artistName,
+		    type: "video"
+		},
+		success: function(results){
+		    //pass video ID here
+		    // returns YT's top hit 
+		    app.videoRenderer((results.items[0].id.videoId),locationFlag);
+		} 
+
+
+	    }); //ajax to search for inputed artist's genre.
+	    console.log(locationFlag);
+};
+
+
+app.videoRenderer = function (videoID, locationFlag ){// accepts video ID and flag for where it goes to display?
+	console.log(locationFlag);
+	var videoURL = ("http://www.youtube.com/embed/"+videoID+"?autoplay=0&origin=http://example.com");
+  	console.log(videoURL); // verifies integrity of video URL defaults to NOT autoplay.
+	var videoSelector = "";	
+	// maybe can use if statement here to create variable that selects which selector to use?
+	if (locationFlag === 0 ) {
+		// $(".artist-lists.first-list.video").empty(); 
+		console.log("i am in the left column");
+		var videoSelector 	= ".artist-lists .first-list .video";
+	} else if (locationFlag === 1) {
+		console.log("i am in the center column");
+		// $(".artist-lists.first-list.video").empty(); 
+		var videoSelector	= ".artist-lists .second-list .video";
+	} else {
+		console.log("i am in the right column");
+		var videoSelector	= ".artist-lists .third-list .video";
+	}
+		// $(".artist-lists.first-list.video").empty(); 
+		
+
+
+  		// JQuery object to create iframe scaffold
+  		var $videoItem = $("<iframe>");
+  		// begin construction of iframe elements
+  		$videoItem.attr("id", "ytplayer");
+  		$videoItem.attr("type", "text\/html");
+  		$videoItem.attr("width","300"); // change width here
+		$videoItem.attr("height","230"); // change height here
+		$videoItem.attr("src", videoURL); // complete video URL is here
+		$videoItem.attr("frameborder","0"); // so as not to mess with the CSS
+		// end construction of iframe elements;
+
+		// select the selector for video and append.
+		
+		$(videoSelector).append($videoItem);
+
+  	// }); //end of each function
+
+	// begins concatenation process to create HTML string for iframe
+	// is fired when results are generated (so after user selects the genre)
+	console.log("exiting video Renderer function");
+};
+
+//END VIDEO CREATION
 
 app.init = function(){
     app.searchArtist();
