@@ -354,7 +354,7 @@ app.randomNoGenre = function (list){
 
 // THIS IS THE VIDEO RENDERING AND HTML WRITING BLOCK
 
-app.videoFinder = function(artistName){// accepts an artists (probably hopefully? limited to three)
+app.videoFinder = function(artistName){// accepts an artist array (probably hopefully? limited to three)
 	// ajax call is made to find video ids of the artists
 	// throws video id
 	// ID is moved to additional constructor for video URL in youtube
@@ -381,37 +381,37 @@ app.videoFinder = function(artistName){// accepts an artists (probably hopefully
 
 };
 
-app.videoRenderer = function (videoID){// accepts video ID
+app.videoRenderer = function (videoID){// accepts video ID and flag for where it goes to display?
 	var videoURL = ("http://www.youtube.com/embed/"+videoID+"?autoplay=0&origin=http://example.com");
   	console.log(videoURL); // verifies integrity of video URL defaults to NOT autoplay.
-	$(".search_radioButtons").empty();  	
+	$(".artist-lists.first-list.video").empty();  	
+	// maybe can use if statement here to create variable that selects which selector to use?
 
-  	$(".search_radioButtons").empty();
-  	$.each(genreList, function(index,item){
-  		console.log(item.name);
-  		// JQuery object to create radio buttons
-  		var $radioItem = $("<input>");
+	var firstVideo 	= ".artist-lists .first-list .video";
+	var secondVideo	= ".artist-lists .second-list .video";
+	var thirdVideo	= ".artist-lists .third-list .video";
 
-  		$radioItem.attr("name", "artistRadioButtons");
-  		$radioItem.attr("type", "radio");
-  		$radioItem.attr("id", item.name + " radioButton");
-  		$radioItem.attr("value", item.name);
-  		// JQuery object to create radio button LABELS
-  		var $labelItem = $("<label>");
-  		$labelItem.addClass("artistLabel");
-  		$labelItem.attr("for", item.name + " radioButton");
-  		$labelItem.attr("value", item.name);
-  		$labelItem.text(item.name);
-  		// final construction of HTML scaffold
-  		$labelItem.append($radioItem);
-  		// print scaffold to matching div
-  		$(".search_radioButtons").append($labelItem);
+  		
+  		// JQuery object to create iframe scaffold
+  		var $videoItem = $("<iframe>");
+  		// begin construction of iframe elements
+  		$videoItem.attr("id", "ytplayer");
+  		$videoItem.attr("type", "text\/html");
+  		$videoItem.attr("width","300"); // change width here
+		$videoItem.attr("height","230"); // change height here
+		$videoItem.attr("src", videoURL); // complete video URL is here
+		$videoItem.attr("frameborder","0"); // so as not to mess with the CSS
+		// end construction of iframe elements;
 
-  	}); //end of each function
+		// select the selector for video and append.
+		
+		$(secondVideo).append($videoItem);
+
+  	// }); //end of each function
 
 	// begins concatenation process to create HTML string for iframe
 	// is fired when results are generated (so after user selects the genre)
-	
+	console.log("exiting video Renderer function");
 };
 
 //END VIDEO CREATION
