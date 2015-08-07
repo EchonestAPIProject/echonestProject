@@ -294,8 +294,11 @@ app.genreMatcher = function(genre){
             console.log("fill");
             count = tempName.length;
             for (var j = 0; j < artistsByGenre.noGenre.length; j++){
-                tempName.push(artistsByGenre.noGenre[j]);
-                // app.arraytoObjects(tempName,"noGenre");
+                var noGenreBand = [];
+                noGenreBand.push(artistsByGenre.noGenre[j])
+                app.arraytoObjects(noGenreBand,"noGenre");
+                tempName = tempName.concat(noGenreBand);
+                
             }
 
         }            
@@ -311,7 +314,7 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
 	console.log("artists are more than three");
 	for (var i = 0; i < 3; i++){
 	    var num = (Math.floor(Math.random() * genreList.length))
-	    
+
 	    var name = genreList[num];
 
 	    app.artistsArray.push(name);
@@ -337,6 +340,7 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
         for (var k = app.artistsArray.length; i < 3; i++){
             var num = (Math.floor(Math.random() * genreList.length))
 
+
             var name = genreList[num];
 	    	genreList.splice(num, 1)
 	    	app.artistsArray.push(name);
@@ -347,12 +351,6 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
     } else {
 	app.artistsArray = genreList;
 	console.log(app.artistsArray)
-        // for (var k = app.artistsArray.length; k < 4; k++){
-        //     for(var i = 0; i < newGenreList.length; i++){
-                
-        //     }
-
-        // }
     };                          
 
 }
