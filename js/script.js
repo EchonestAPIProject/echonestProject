@@ -77,7 +77,7 @@ app.SimGenre = function (genre){
            app.newGenreList = [];
             for (var i=0; i<a.length; i++){
                 app.newGenreList.push(a[i].name);
-                
+                // console.log(app.newGenreList);
                 // console.log (a[i].name);
             };
         },
@@ -85,6 +85,7 @@ app.SimGenre = function (genre){
             console.log("fail");
         }
     });
+
 }
 
 //function to return a radio button list of genre based on user's artist search
@@ -142,7 +143,7 @@ app.genreSelected = function(){
 // accepts the FF arguments: "genre" which is a string.
 app.genreMatcher = function(genre){
     // array of artists by genre 
-    // regex to strip whitespaces from genre
+
     var foundGenre = genre;
 
     var artistsByGenre = {
@@ -221,6 +222,7 @@ app.genreMatcher = function(genre){
 	        // placeholder for next function
 	        // app.artistThrower(tempName);
             } else {
+            	console.log("genre not found!");
                 var tempNameinit = artistsByGenre[prop];
                 var count = artistsByGenre[prop].length;
                 console.log(count);
@@ -240,7 +242,7 @@ app.genreMatcher = function(genre){
                 console.log(tempName,count);
                 app.artistThrower(tempName,count);
                 
-	    } 
+	    	} 
         }
     }
 };	
@@ -253,14 +255,16 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
 	console.log("artists are more than three");
 	for (var i = 0; i < 3; i++){
 	    var num = (Math.floor(Math.random() * genreList.length))
-	    // var name = genreList.splice(num, 1)
+	    
 	    var name = genreList[num];
-	    app.artistsArray.push(name)
+	    genreList.splice(num, 1)
+	    app.artistsArray.push(name);
+
 	    console.log(app.artistsArray);	
 	    
 	    console.log("returning three random artists!");
         }
-	
+		
 	// return names anyway
     } else if (genreList.length >= 3 && counter < 3){
         for (var i = 0; i < counter; i++){
@@ -270,10 +274,10 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
         };
         for (var k = app.artistsArray.length; i < 3; i++){
             var num = (Math.floor(Math.random() * genreList.length))
-	    // var name = genreList.splice(num, 1)
-	    var name = genreList[num];
-	    app.artistsArray.push(name)
-            genreList.splice(num,1);
+
+            var name = genreList[num];
+	    	genreList.splice(num, 1)
+	    	app.artistsArray.push(name);
         }
         console.log(app.artistsArray);
         
@@ -289,29 +293,29 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
     };                          
 
 }
-app.artistThrower = function (genreList){// accepts an array and checks if it has more than three artists. returns three artists. (at random)
-		app.artistsArray = [];
+// app.artistThrower = function (genreList){// accepts an array and checks if it has more than three artists. returns three artists. (at random)
+// 		app.artistsArray = [];
 		
-		if(genreList.length > 3){
-			console.log("artists are more than three");
-			for (var i = 0; i < 3; i++){
-				var num = (Math.floor(Math.random() * genreList.length))
-				// var name = genreList.splice(num, 1)
-				var name = genreList[num];
-				app.artistsArray.push(name)
-				console.log(app.artistsArray);	
-			}
-			console.log("returning three random artists!");
+// 		if(genreList.length > 3){
+// 			console.log("artists are more than three");
+// 			for (var i = 0; i < 3; i++){
+// 				var num = (Math.floor(Math.random() * genreList.length))
+// 				var name = genreList.splice(num, 1)
+// 				// var name = genreList[num];
+// 				app.artistsArray.push(name)
+// 				console.log(app.artistsArray);	
+// 			}
+// 			console.log("returning three random artists!");
 			
-			// return names anyway
-		} else {
-			app.artistsArray = genreList;
-			console.log(app.artistsArray)
-		};
+// 			// return names anyway
+// 		} else {
+// 			app.artistsArray = genreList;
+// 			console.log(app.artistsArray)
+// 		};
 		
-		// app.artistsArray = genreList;
-		// console.log("artists are less than three")
-};
+// 		// app.artistsArray = genreList;
+// 		// console.log("artists are less than three")
+// };
 
 // app.artistsArray = genreList;
 // console.log("artists are less than three")
