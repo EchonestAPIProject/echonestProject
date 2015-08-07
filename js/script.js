@@ -138,6 +138,19 @@ app.genreSelected = function(){
     });
 } // end of app.genreSelected
 
+
+app.arraytoObjects = function (array,addObject){
+    
+    for (var o = 0; o < array.length; o++){
+        var object = {
+            name: array[o],
+            genre: addObject
+        };
+        array.splice(o,1,object);
+    }
+    
+}
+
 //this function is to check the genre for the A&C artists
 //function to search through list of genres, and their corresponding artists
 //accepts dot notation, with the final list of artists being contained in arrays for acccess/ randomization
@@ -216,31 +229,38 @@ app.genreMatcher = function(genre){
     if (artistsByGenre.hasOwnProperty(foundGenre)){
         for (var prop in artistsByGenre){
 	    if(prop === foundGenre){
-                var tempname = "";
+                var tempName = [];
                 if(artistsByGenre[prop].length >= 3){
 	            tempName = artistsByGenre[prop];
 	            console.log(tempName);
-
+                    // array to object conversion
+                    app.arraytoObjects (tempName,foundGenre);
+                    console.log(tempName);
 	            // this part of the function can output an array for further processing.
 	            // placeholder for next function
 	            // app.artistThrower(tempName);
-                    console.log(tempName.length);
                     
                     app.artistThrower(tempName, 3);
                 } else {
                     var tempNameinit = artistsByGenre[prop];
                     var count = artistsByGenre[prop].length;
                     console.log(count);
+                    app.arraytoObjects(tempNameinit,foundGenre); //array to object
+                    
                     console.log(tempNameinit);
                     for (var i = artistsByGenre[prop].length; i < 3; i++){
                         for (var k = 0; k < app.newGenreList.length; k++){
-                            console.log(artistsByGenre[app.newGenreList[k]])
-                            var splicer = artistsByGenre[app.newGenreList[k]]
-                            tempName = tempNameinit.concat(splicer);
+                            if(artistsByGenre.hasOwnProperty(app.newGenreList[k])){
+                                console.log(artistsByGenre[app.newGenreList[k]])
+                                var splicer = artistsByGenre[app.newGenreList[k]]
+                                app.arraytoObjects(splicer,app.newGenreList[k]);
+                                tempName = tempNameinit.concat(splicer);
+                            }
                             if (tempName.length >= 3){
                                 console.log(tempName);
                                 break;
-                            }                            
+                            }
+                            
                         }
                     }
                     console.log(tempName,count);
@@ -256,20 +276,24 @@ app.genreMatcher = function(genre){
             if(artistsByGenre.hasOwnProperty(app.newGenreList[k])){
                 console.log(artistsByGenre[app.newGenreList[k]])
                 var splicer = artistsByGenre[app.newGenreList[k]]
+                app.arraytoObjects(splicer,app.newGenreList[k]);
                 tempName = tempName.concat(splicer);
-                if (tempName.length >= 3){
-                    console.log(tempName);
-                    count = tempName.length;
-                    break;
-                }
             }
+            if (tempName.length >= 3){
+                console.log(tempName);
+                count = tempName.length;
+                break;
+            }
+        
         }
         if (tempName.length < 3){
             console.log("fill");
             count = tempName.length;
             for (var j = 0; j < artistsByGenre.noGenre.length; j++){
                 tempName.push(artistsByGenre.noGenre[j]);
-            }            
+                // app.arraytoObjects(tempName,"noGenre");
+            }
+
         }            
         app.artistThrower(tempName,count);
     }
