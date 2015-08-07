@@ -165,13 +165,10 @@ app.genreMatcher = function(genre){
 
     var artistsByGenre = {
 	noGenre: [
-	    "absolutely free",	
 	    "Bell Orchestre",	
 	    "andy kim",	
-	    "Absolutely free",	
 	    "cold specks",	
 	    "Torres",	
-	    "Feist",	
 	    "The Drums",	
 	    "tei shi",	
 	    "kevin drew",	
@@ -326,10 +323,12 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
 
 		//begin creating videos
 		//videoFinder accepts the artists name and adds a flag. 1 - corresponds to first list 2 corresponds to second list, and so on and so forth...
-		
+
 
         }
-		
+		app.videoFinder((app.artistsArray[0].name),"left");
+		app.videoFinder((app.artistsArray[1].name),"center");
+		app.videoFinder((app.artistsArray[2].name),"right");
 	// return names anyway
     } else if (genreList.length >= 3 && counter < 3){
         for (var i = 0; i < counter; i++){
@@ -339,20 +338,17 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
         };
         for (var k = app.artistsArray.length; i < 3; i++){
             var num = (Math.floor(Math.random() * genreList.length))
-
-
             var name = genreList[num];
 	    	genreList.splice(num, 1)
 	    	app.artistsArray.push(name);
-
         }
         console.log(app.artistsArray);
         //call video renderer here
     } else {
 	app.artistsArray = genreList;
-	console.log(app.artistsArray)
+	console.log(app.artistsArray);
     };                          
-
+		
 }
 
 
@@ -389,7 +385,7 @@ app.randomNoGenre = function (list){
 
 // THIS IS THE VIDEO RENDERING AND HTML WRITING BLOCK
 
-app.videoFinder = function(artistName){// accepts an artist array (probably hopefully? limited to three)
+app.videoFinder = function(artistName, locationFlag){// accepts an artist array (probably hopefully? limited to three)
 	// ajax call is made to find video ids of the artists
 	// throws video id
 	// ID is moved to additional constructor for video URL in youtube
@@ -408,33 +404,34 @@ app.videoFinder = function(artistName){// accepts an artist array (probably hope
 		success: function(results){
 		    //pass video ID here
 		    // returns YT's top hit 
-		    app.videoRenderer(results.items[0].id.videoId);
+		    app.videoRenderer((results.items[0].id.videoId),locationFlag);
 		} 
 
 
 	    }); //ajax to search for inputed artist's genre.
-
+	    console.log(locationFlag);
 };
 
 
-
-app.videoRenderer = function (videoID ){// accepts video ID and flag for where it goes to display?
+app.videoRenderer = function (videoID, locationFlag ){// accepts video ID and flag for where it goes to display?
+	console.log(locationFlag);
 	var videoURL = ("http://www.youtube.com/embed/"+videoID+"?autoplay=0&origin=http://example.com");
   	console.log(videoURL); // verifies integrity of video URL defaults to NOT autoplay.
 	var videoSelector = "";	
 	// maybe can use if statement here to create variable that selects which selector to use?
-	if (locationFlag ===1 ) {
-		$(".artist-lists.first-list.video").empty(); 
+	if (locationFlag === "left" ) {
+		// $(".artist-lists.first-list.video").empty(); 
+		console.log("i am in the left column");
 		var videoSelector 	= ".artist-lists .first-list .video";
-	} else if (locationFlag===2) {
-		$(".artist-lists.first-list.video").empty(); 
+	} else if (locationFlag === "center") {
+		// $(".artist-lists.first-list.video").empty(); 
 		var videoSelector	= ".artist-lists .second-list .video";
-	} // end of else; final location flag
-		$(".artist-lists.first-list.video").empty(); 
-		var videoSelector	= ".artist-lists .second-list .video";
-	
+	} else {
+		var videoSelector	= ".artist-lists .third-list .video";
+	}
+		// $(".artist-lists.first-list.video").empty(); 
+		
 
-	
 
   		// JQuery object to create iframe scaffold
   		var $videoItem = $("<iframe>");
@@ -449,7 +446,7 @@ app.videoRenderer = function (videoID ){// accepts video ID and flag for where i
 
 		// select the selector for video and append.
 		
-		$(secondVideo).append($videoItem);
+		$(videoSelector).append($videoItem);
 
   	// }); //end of each function
 
