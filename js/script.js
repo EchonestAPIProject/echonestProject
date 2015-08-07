@@ -4,6 +4,7 @@ var genreURL = "http://developer.echonest.com/api/v4/genre/similar";
 
 var app = {};
 
+
 // scroll move when press the GetStarted button
 app.getStarted = function(){
 	$(".start").on("click", function(){
@@ -12,6 +13,7 @@ app.getStarted = function(){
 		}, 2000);
 	});
 }  //end of getStarted function
+
 
 //search artist field functions
 
@@ -113,9 +115,7 @@ app.genreRadioButtons = function(genreList){
 
 	}); //end of each function
 
-
 };
-
 
 //
 
@@ -124,21 +124,17 @@ app.genreRadioButtons = function(genreList){
 
 app.genreSelected = function(){
 
-
 	$(".search_radioButtons").on("change", function(e){
 		app.genreListA = "";
 		e.preventDefault();
 		app.genreListA = $("input[name='artistRadioButtons']:checked").val();
 		// console.log(app.searchQuery);
 	    console.log(app.genreListA);
-            app.SimGenre(app.genreListA);
-
-	//calling.genreMatcher here
-	app.genreMatcher(app.genreListA);
+        app.SimGenre(app.genreListA);
+		//calling.genreMatcher here
+		app.genreMatcher(app.genreListA);
     });
-
 } // end of app.genreSelected
-
 
 //this function is to check the genre for the A&C artists
 //function to search through list of genres, and their corresponding artists
