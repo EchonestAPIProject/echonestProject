@@ -38,7 +38,7 @@ app.getGenre = function(query){
 	},
 	success: function(artist){
 	    // console.log(artist.response.artists[0].genres);
-	    app.genreDropdown(artist.response.artists[0].genres);
+	    app.genreRadioButtons(artist.response.artists[0].genres);
 	    app.SimGenre(artist.response.artists[0].genres[1].name);
 	} //end of success function
 
@@ -50,7 +50,7 @@ app.getGenre = function(query){
 
 // pull for similar Genres, outputs array in order of similarity
 // i.e.
-var newGenreList = [];
+app.newGenreList = [];
 app.SimGenre = function (genre){
     $.ajax({
         url: genreURL,
@@ -64,9 +64,9 @@ app.SimGenre = function (genre){
         success: function (simgen){
             console.log(simgen.response.genres);
             var a = simgen.response.genres;
-            newGenreList = [];
+           app.newGenreList = [];
             for (var i=0; i<a.length; i++){
-                newGenreList.push(a[i].name);
+                app.newGenreList.push(a[i].name);
                 
                 // console.log (a[i].name);
             };
@@ -212,7 +212,7 @@ app.genreMatcher = function(genre){
             if(artistsByGenre[prop].length >= 3){
 	        var tempName = artistsByGenre[prop];
 	        console.log(tempName);
-                
+                app.artistThrower(tempName, 3);
 	        // this part of the function can output an array for further processing.
 	        // placeholder for next function
 	        // app.artistThrower(tempName);
@@ -220,10 +220,11 @@ app.genreMatcher = function(genre){
                 var tempNameinit = artistsByGenre[prop];
                 var count = artistsByGenre[prop].length;
                 console.log(count);
-                console.log(tempName);
+                console.log(tempNameinit);
                 for (var i = artistsByGenre[prop].length; i < 3; i++){
-                    for (var k = 0; k < newGenreList.length; k++){
-                        var splicer = artistsByGenre[newGenreList[k]]
+                    for (var k = 0; k < app.newGenreList.length; k++){
+                        console.log(artistsByGenre[app.newGenreList[k]])
+                        var splicer = artistsByGenre[app.newGenreList[k]]
                         tempName = tempNameinit.concat(splicer);
                         if (tempName.length >= 3){
                             console.log(tempName);
@@ -232,15 +233,16 @@ app.genreMatcher = function(genre){
                         
                     }
                 }
-            }
-            console.log(tempName,count);
-            app.artistThrower(tempName,count);
-	} 
+                console.log(tempName,count);
+                app.artistThrower(tempName,count);
+                
+	    } 
+        }
     }
-};
+};	
 
 
-app.artistThrower = function (genreList,counter){// accepts an array and checks if it has more than three artists. returns three artists. (at random)
+app.artistThrower = function (genreList, counter){// accepts an array and checks if it has more than three artists. returns three artists. (at random)
     app.artistsArray = [];
     
     if(genreList.length >= 3 && counter >= 3){
