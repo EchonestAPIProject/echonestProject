@@ -210,10 +210,13 @@ app.genreMatcher = function(genre){
                 if(artistsByGenre[prop].length >= 3){
 	            tempName = artistsByGenre[prop];
 	            console.log(tempName);
-                    app.artistThrower(tempName, 3);
+
 	            // this part of the function can output an array for further processing.
 	            // placeholder for next function
 	            // app.artistThrower(tempName);
+                    console.log(tempName.length);
+                    
+                    app.artistThrower(tempName, 3);
                 } else {
                     var tempNameinit = artistsByGenre[prop];
                     var count = artistsByGenre[prop].length;
@@ -227,34 +230,38 @@ app.genreMatcher = function(genre){
                             if (tempName.length >= 3){
                                 console.log(tempName);
                                 break;
-                            }
-                            
+                            }                            
                         }
                     }
                     console.log(tempName,count);
                     app.artistThrower(tempName,count);
-                    
-	        }
-            }
-            
+                }
+            }            
         }
     } else {
         var tempName = [];
+        var count = "";
         console.log(1);
         for (var k = 0; k < app.newGenreList.length; k++){
-            console.log(artistsByGenre[app.newGenreList[k]])
-            var splicer = artistsByGenre[app.newGenreList[k]]
-            tempName = tempName.concat(splicer);
-            if (tempName.length >= 3){
-                console.log(tempName);
-                break;
+            if(artistsByGenre.hasOwnProperty(app.newGenreList[k])){
+                console.log(artistsByGenre[app.newGenreList[k]])
+                var splicer = artistsByGenre[app.newGenreList[k]]
+                tempName = tempName.concat(splicer);
+                if (tempName.length >= 3){
+                    console.log(tempName);
+                    count = tempName.length;
+                    break;
+                }
             }
         }
         if (tempName.length < 3){
-            
-        }
-            
-        app.artistThrower(tempName,0);
+            console.log("fill");
+            count = tempName.length;
+            for (var j = 0; j < artistsByGenre.noGenre.length; j++){
+                tempName.push(artistsByGenre.noGenre[j]);
+            }            
+        }            
+        app.artistThrower(tempName,count);
     }
 };	
 
