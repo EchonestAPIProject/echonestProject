@@ -1,3 +1,57 @@
 @import "setup";
-@import"bourbon/bourbon";
-@import"neat/neat";
+@import "bourbon/bourbon";
+@import "neat/neat";
+
+
+//color variables
+
+$color01: #D2105E;
+$color02: #6e6f71;
+$color03: #d2d3d5;
+$color04: #141414;
+
+//font variables
+
+$font01: 'Roboto Condensed', sans-serif;
+$font02: 'Muli', sans-serif;
+
+body{
+	font-size: 16px;
+	font-family: $font02;
+}
+
+section.search_artist{
+	z-index:10;
+	position: relative;
+	background: url("../images/BG01.jpeg");
+	background-size: cover;
+	padding-bottom: 600px;
+	h1{
+		font-size: 50px;
+		margin-top: 0;
+		margin-left: 1%;
+		padding-top: 1%;
+		margin-bottom: 0;
+		font-family: $font01;
+		font-weight: 700;
+		letter-spacing: -7px;
+		color: $color01;
+		span.andMark{
+			color:$color02;
+			font-size: 40px;
+			// font-weight: 400;
+		}
+	}
+	h2{
+		font-size: 18px;
+		margin-top: 0;
+		margin-left: 1%;
+		color: $color02;
+	}
+	.search_form{
+		font-size: 16px;
+		input{
+			font-size: 16px;
+		}
+	}
+}

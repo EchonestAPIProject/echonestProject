@@ -222,7 +222,7 @@ app.artistThrower = function (genreList){// accepts an array and checks if it ha
 		
 		// app.artistsArray = genreList;
 		// console.log("artists are less than three")
-
+};
 
 //randomNoGenre function
 
@@ -249,7 +249,7 @@ app.randomNoGenre = function (list){
 
 	});
 
-}
+};
 
 
 
