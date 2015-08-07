@@ -335,10 +335,58 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
         
     } else {
 	app.artistsArray = genreList;
+
 	console.log(app.artistsArray)
-    };                          
+
+    }; 
+    app.finalDetail(app.artistsArray);                         
+                         
 
 }
+
+// get 3 artists on the page
+
+app.finalDetail = function (artist){
+	console.log(artist);
+	var finalArray = [];
+	$.each(artist, function(index,item){
+			var Aname = item.name;
+			var Agenre = item.genre;
+			console.log(Aname);
+		    $.ajaxSettings.traditional = true; //PLEASE DONT TOUCH!!!
+		    // var bucket = "biographies&bucket=image&bucket=reviews&bucket=audio&bucket=video&bucket=discovery"
+		    $.ajax({
+			url: "http://developer.echonest.com/api/v4/artist/search?",
+			type: "GET",
+			dataType: 'json',
+			data:{
+			    api_key:apikeyAngus,
+			    format:"json",
+			    name:Aname,
+			    bucket: ["images", "biographies", "songs"],
+			    results:1
+			},
+			success: function(final){
+			    console.log(final.response.artists[0]);
+			finalArray.push(final.response.artists[0]);
+			console.log(finalArray);
+		 app.finalDisplay (finalArray);
+			} //end of success function
+
+
+	});
+});
+
+};
+
+//final display is happened
+app.finalDisplay = function(finalD){
+	$.each(finalD, function(index,item){
+			console.log(item);
+
+	});
+
+};
 
 // app.artistsArray = genreList;
 // console.log("artists are less than three")
