@@ -4,6 +4,14 @@ var genreURL = "http://developer.echonest.com/api/v4/genre/similar";
 
 var app = {};
 
+// scroll move when press the GetStarted button
+app.getStarted = function(){
+	$(".start").on("click", function(){
+			$('html, body').animate({
+		    scrollTop: $(".search_artist").offset().top
+		}, 2000);
+	});
+}  //end of getStarted function
 
 //search artist field functions
 
@@ -340,6 +348,7 @@ app.randomNoGenre = function (list){
 app.init = function(){
     app.searchArtist();
     app.genreSelected();
+    app.getStarted();
     // app.randomNoGenre();
     // app.genreMatcher();
 };
