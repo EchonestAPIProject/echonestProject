@@ -326,9 +326,6 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
 
 
         }
-		app.videoFinder((app.artistsArray[0].name),"left");
-		app.videoFinder((app.artistsArray[1].name),"center");
-		app.videoFinder((app.artistsArray[2].name),"right");
 	// return names anyway
     } else if (genreList.length >= 3 && counter < 3){
         for (var i = 0; i < counter; i++){
@@ -346,10 +343,66 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
         //call video renderer here
     } else {
 	app.artistsArray = genreList;
-	console.log(app.artistsArray);
-    };                          
-		
+
+	console.log(app.artistsArray)
+
+    }; 
+    app.finalDetail(app.artistsArray);                         
+                         
+
 }
+
+// get 3 artists on the page
+
+app.finalDetail = function (artist){
+	console.log(artist);
+	var finalArray = [];
+	$.each(artist, function(index,item){
+			var Aname = item.name;
+			var Agenre = item.genre;
+			console.log(Aname);
+			console.log(index);
+
+			//VIDEO FINDER FUNCTION
+		
+			app.videoFinder(Aname, index);
+
+			//END VIDEO FINDER FUNCTION
+
+			
+		    $.ajaxSettings.traditional = true; //PLEASE DONT TOUCH!!!
+		    // var bucket = "biographies&bucket=image&bucket=reviews&bucket=audio&bucket=video&bucket=discovery"
+		    $.ajax({
+			url: "http://developer.echonest.com/api/v4/artist/search?",
+			type: "GET",
+			dataType: 'json',
+			data:{
+			    api_key:apikeyAngus,
+			    format:"json",
+			    name:Aname,
+			    bucket: ["images", "biographies", "songs"],
+			    results:1
+			},
+			success: function(final){
+			    console.log(final.response.artists[0]);
+				finalArray.push(final.response.artists[0]);
+				console.log(finalArray);
+		 		app.finalDisplay (finalArray);
+			} //end of success function
+
+
+	});
+});
+
+};
+
+//final display is happened
+app.finalDisplay = function(finalD){
+	$.each(finalD, function(index,item){
+			console.log(item);
+	});
+
+};
 
 
 // app.artistsArray = genreList;
@@ -419,14 +472,16 @@ app.videoRenderer = function (videoID, locationFlag ){// accepts video ID and fl
   	console.log(videoURL); // verifies integrity of video URL defaults to NOT autoplay.
 	var videoSelector = "";	
 	// maybe can use if statement here to create variable that selects which selector to use?
-	if (locationFlag === "left" ) {
+	if (locationFlag === 0 ) {
 		// $(".artist-lists.first-list.video").empty(); 
 		console.log("i am in the left column");
 		var videoSelector 	= ".artist-lists .first-list .video";
-	} else if (locationFlag === "center") {
+	} else if (locationFlag === 1) {
+		console.log("i am in the center column");
 		// $(".artist-lists.first-list.video").empty(); 
 		var videoSelector	= ".artist-lists .second-list .video";
 	} else {
+		console.log("i am in the right column");
 		var videoSelector	= ".artist-lists .third-list .video";
 	}
 		// $(".artist-lists.first-list.video").empty(); 
