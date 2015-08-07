@@ -4,17 +4,6 @@ var genreURL = "http://developer.echonest.com/api/v4/genre/similar";
 
 var app = {};
 
-
-// scroll move when press the GetStarted button
-app.getStarted = function(){
-	$(".start").on("click", function(){
-			$('html, body').animate({
-		    scrollTop: $(".search_artist").offset().top
-		}, 2000);
-	});
-}  //end of getStarted function
-
-
 //search artist field functions
 
 app.searchArtist = function(){
@@ -130,6 +119,7 @@ app.genreSelected = function(){
 		e.preventDefault();
 		app.genreListA = $("input[name='artistRadioButtons']:checked").val();
 		// console.log(app.searchQuery);
+
             app.SimGenre(app.genreListA);
 
 	//calling.genreMatcher here
@@ -291,63 +281,41 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
     };                          
 
 }
-app.artistThrower = function (genreList){// accepts an array and checks if it has more than three artists. returns three artists. (at random)
-		app.artistsArray = [];
-		
-		if(genreList.length > 3){
-			console.log("artists are more than three");
-			for (var i = 0; i < 3; i++){
-				var num = (Math.floor(Math.random() * genreList.length))
-				// var name = genreList.splice(num, 1)
-				var name = genreList[num];
-				app.artistsArray.push(name)
-				console.log(app.artistsArray);	
-			}
-			console.log("returning three random artists!");
-			
-			// return names anyway
-		} else {
-			app.artistsArray = genreList;
-			console.log(app.artistsArray)
-		};
-		
-		// app.artistsArray = genreList;
-		// console.log("artists are less than three")
-};
 
 // app.artistsArray = genreList;
 // console.log("artists are less than three")
+
+
 //randomNoGenre function
 
 app.randomNoGenre = function (list){
-	var randomN = Math.floor(Math.random()*list.length);
-	var randomArtist = list[randomN];
-	$.ajaxSettings.traditional = true; //PLEASE DONT TOUCH!!!
-	// var bucket = "biographies&bucket=image&bucket=reviews&bucket=audio&bucket=video&bucket=discovery"
-	$.ajax({
-		url: "http://developer.echonest.com/api/v4/artist/search?",
-	    type: "GET",
-		dataType: 'json',
-		data:{
-		    api_key:apikeyAngus,
-		    format:"json",
-		    name:randomArtist,
-		    bucket: ["images", "biographies", "songs"]
-		},
-	    success: function(artist){
-		console.log(artist);
-		
-		} //end of success function
+    var randomN = Math.floor(Math.random()*list.length);
+    var randomArtist = list[randomN];
+    $.ajaxSettings.traditional = true; //PLEASE DONT TOUCH!!!
+    // var bucket = "biographies&bucket=image&bucket=reviews&bucket=audio&bucket=video&bucket=discovery"
+    $.ajax({
+	url: "http://developer.echonest.com/api/v4/artist/search?",
+	type: "GET",
+	dataType: 'json',
+	data:{
+	    api_key:apikeyAngus,
+	    format:"json",
+	    name:randomArtist,
+	    bucket: ["images", "biographies", "songs"]
+	},
+	success: function(artist){
+	    console.log(artist);
+	    
+	} //end of success function
 
 
-	});
+    });
 
-};
+}
 
 app.init = function(){
     app.searchArtist();
     app.genreSelected();
-    app.getStarted();
     // app.randomNoGenre();
     // app.genreMatcher();
 };
