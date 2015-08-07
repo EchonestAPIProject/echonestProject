@@ -381,6 +381,8 @@ app.videoFinder = function(artistName){// accepts an artist array (probably hope
 
 };
 
+
+
 app.videoRenderer = function (videoID){// accepts video ID and flag for where it goes to display?
 	var videoURL = ("http://www.youtube.com/embed/"+videoID+"?autoplay=0&origin=http://example.com");
   	console.log(videoURL); // verifies integrity of video URL defaults to NOT autoplay.
