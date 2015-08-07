@@ -303,6 +303,7 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
         
     } else {
 	app.artistsArray = genreList;
+
 	console.log(app.artistsArray)
         // for (var k = app.artistsArray.length; k < 4; k++){
         //     for(var i = 0; i < newGenreList.length; i++){
@@ -310,9 +311,36 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
         //     }
 
         // }
-    };                          
-
+    }; 
+    app.finalDisplay(app.artistsArray);                         
 }
+
+// display 3 artists on the page
+
+app.finalDisplay = function (artist){
+	console.log(artist);
+	// $.each(artist, function(index,item){
+	// 	    $.ajaxSettings.traditional = true; //PLEASE DONT TOUCH!!!
+	// 	    // var bucket = "biographies&bucket=image&bucket=reviews&bucket=audio&bucket=video&bucket=discovery"
+	// 	    $.ajax({
+	// 		url: "http://developer.echonest.com/api/v4/artist/search?",
+	// 		type: "GET",
+	// 		dataType: 'json',
+	// 		data:{
+	// 		    api_key:apikeyAngus,
+	// 		    format:"json",
+	// 		    name:randomArtist,
+	// 		    bucket: ["images", "biographies", "songs"]
+	// 		},
+	// 		success: function(artist){
+	// 		    console.log(artist);
+			    
+	// 		} //end of success function
+
+	// });
+
+};
+
 
 // app.artistsArray = genreList;
 // console.log("artists are less than three")
