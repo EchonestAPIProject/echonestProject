@@ -79,7 +79,7 @@ app.SimGenre = function (genre){
 
 //function to return a radio button list of genre based on user's artist search
 
-<<<<<<< HEAD
+
 // function to create radiobuttons with labels
 app.genreRadioButtons = function(genreList){
 	$(".search_radioButtons").empty();
@@ -104,7 +104,7 @@ app.genreRadioButtons = function(genreList){
 		$(".search_radioButtons").append($labelItem);
 
 	}); //end of each function
-=======
+
 
 };
 
@@ -233,6 +233,7 @@ app.genreMatcher = function(genre){
                     }
                 }
             }
+            console.log(tempName,count);
             app.artistThrower(tempName,count);
 	} 
     }
