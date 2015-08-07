@@ -268,7 +268,8 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
 	    var num = (Math.floor(Math.random() * genreList.length))
 	    // var name = genreList.splice(num, 1)
 	    var name = genreList[num];
-	    app.artistsArray.push(name)
+	    app.artistsArray.push(name);
+            genreList.splice(num, 1);
 	    console.log(app.artistsArray);	
 	    
 	    console.log("returning three random artists!");
