@@ -64,12 +64,13 @@ app.SimGenre = function (genre){
         success: function (simgen){
             console.log(simgen.response.genres);
             var a = simgen.response.genres;
-           app.newGenreList = [];
+            app.newGenreList = [];
             for (var i=0; i<a.length; i++){
                 app.newGenreList.push(a[i].name);
                 
                 // console.log (a[i].name);
             };
+            console.log(app.newGenreList);
         },
         fail: function (){
             console.log("fail");
@@ -122,7 +123,6 @@ app.genreSelected = function(){
 		e.preventDefault();
 		app.genreListA = $("input[name='artistRadioButtons']:checked").val();
 		// console.log(app.searchQuery);
-	    console.log(app.genreListA);
             app.SimGenre(app.genreListA);
 
 	//calling.genreMatcher here
