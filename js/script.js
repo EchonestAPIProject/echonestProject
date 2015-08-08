@@ -237,7 +237,7 @@ app.genreMatcher = function(genre){
                     // array to object conversion
                     app.arraytoObjects (tempName,foundGenre);
                     console.log(tempName);
-	            // this part of the function can output an array for further processing.
+	            // this part of the function can output 	an array for further processing.
 	            // placeholder for next function
 	            // app.artistThrower(tempName);
                     
@@ -334,7 +334,7 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
             genreList.shift();
             console.log(genreList.length);
         };
-        for (var k = app.artistsArray.length; i < 3; i++){
+        for (var k = app.artistsArray.length; k < 3; k++){
             var num = (Math.floor(Math.random() * genreList.length))
             var name = genreList[num];
 	    	genreList.splice(num, 1)
@@ -358,6 +358,7 @@ app.artistThrower = function (genreList, counter){// accepts an array and checks
 app.finalDetail = function (artist){
 	console.log(artist);
 	var finalArray = [];
+	
 	$.each(artist, function(index,item){
 			var Aname = item.name;
 			var Agenre = item.genre;
@@ -371,7 +372,7 @@ app.finalDetail = function (artist){
 
 			//END VIDEO FINDER FUNCTION
 
-			
+
 		    $.ajaxSettings.traditional = true; //PLEASE DONT TOUCH!!!
 		    // var bucket = "biographies&bucket=image&bucket=reviews&bucket=audio&bucket=video&bucket=discovery"
 		    $.ajax({
