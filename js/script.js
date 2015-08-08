@@ -236,7 +236,7 @@ app.genreMatcher = function(genre){
                     // array to object conversion
                     app.arraytoObjects (tempName,foundGenre);
                     console.log(tempName);
-	            // this part of the function can output an array for further processing.
+	            // this part of the function can output 	an array for further processing.
 	            // placeholder for next function
 	            // app.artistThrower(tempName);
                     
