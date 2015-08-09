@@ -506,35 +506,86 @@ app.videoRenderer = function (videoID, locationFlag ){// accepts video ID and fl
 		// $(".artist-lists.first-list.video").empty(); 
 		console.log("i am in the left column");
 		var videoSelector 	= ".artist-lists .first-list .video";
+		  		// JQuery object to create iframe scaffold
+		  		var $videoItem = $("<iframe>");
+		  		// begin construction of iframe elements
+		  		$videoItem.attr("id", "ytplayer");
+		  		$videoItem.attr("type", "text\/html");
+		  		$videoItem.attr("width","300"); // change width here
+				$videoItem.attr("height","230"); // change height here
+				$videoItem.attr("src", videoURL); // complete video URL is here
+				$videoItem.attr("frameborder","0"); // so as not to mess with the CSS
+				// end construction of iframe elements;
+
+				// select the selector for video and append.
+				//adding a close button for video ---Ivy
+				var $closeButton = $("<span>");
+				var $fontO = $("<i>");
+				$fontO.addClass('fa fa-times');
+				$closeButton.append($fontO);
 	} else if (locationFlag === 1) {
 		console.log("i am in the center column");
 		// $(".artist-lists.first-list.video").empty(); 
 		var videoSelector	= ".artist-lists .second-list .video";
+		  		// JQuery object to create iframe scaffold
+		  		var $videoItem = $("<iframe>");
+		  		// begin construction of iframe elements
+		  		$videoItem.attr("id", "ytplayer");
+		  		$videoItem.attr("type", "text\/html");
+		  		$videoItem.attr("width","300"); // change width here
+				$videoItem.attr("height","230"); // change height here
+				$videoItem.attr("src", videoURL); // complete video URL is here
+				$videoItem.attr("frameborder","0"); // so as not to mess with the CSS
+				// end construction of iframe elements;
+
+				// select the selector for video and append.
+				//adding a close button for video ---Ivy
+				var $closeButton = $("<span>");
+				var $fontO = $("<i>");
+				$fontO.addClass('fa fa-times');
+				$closeButton.append($fontO);
 	} else {
 		console.log("i am in the right column");
 		var videoSelector	= ".artist-lists .third-list .video";
+		  		// JQuery object to create iframe scaffold
+		  		var $videoItem = $("<iframe>");
+		  		// begin construction of iframe elements
+		  		$videoItem.attr("id", "ytplayer");
+		  		$videoItem.attr("type", "text\/html");
+		  		$videoItem.attr("width","300"); // change width here
+				$videoItem.attr("height","230"); // change height here
+				$videoItem.attr("src", videoURL); // complete video URL is here
+				$videoItem.attr("frameborder","0"); // so as not to mess with the CSS
+				// end construction of iframe elements;
+
+				// select the selector for video and append.
+				//adding a close button for video ---Ivy
+				var $closeButton = $("<span>");
+				var $fontO = $("<i>");
+				$fontO.addClass('fa fa-times');
+				$closeButton.append($fontO);
 	}
 		// $(".artist-lists.first-list.video").empty(); 
 		
 
 
-  		// JQuery object to create iframe scaffold
-  		var $videoItem = $("<iframe>");
-  		// begin construction of iframe elements
-  		$videoItem.attr("id", "ytplayer");
-  		$videoItem.attr("type", "text\/html");
-  		$videoItem.attr("width","300"); // change width here
-		$videoItem.attr("height","230"); // change height here
-		$videoItem.attr("src", videoURL); // complete video URL is here
-		$videoItem.attr("frameborder","0"); // so as not to mess with the CSS
-		// end construction of iframe elements;
+  // 		// JQuery object to create iframe scaffold
+  // 		var $videoItem = $("<iframe>");
+  // 		// begin construction of iframe elements
+  // 		$videoItem.attr("id", "ytplayer");
+  // 		$videoItem.attr("type", "text\/html");
+  // 		$videoItem.attr("width","300"); // change width here
+		// $videoItem.attr("height","230"); // change height here
+		// $videoItem.attr("src", videoURL); // complete video URL is here
+		// $videoItem.attr("frameborder","0"); // so as not to mess with the CSS
+		// // end construction of iframe elements;
 
-		// select the selector for video and append.
-		//adding a close button for video ---Ivy
-		var $closeButton = $("<span>");
-		var $fontO = $("<i>");
-		$fontO.addClass('fa fa-times');
-		$closeButton.append($fontO);
+		// // select the selector for video and append.
+		// //adding a close button for video ---Ivy
+		// var $closeButton = $("<span>");
+		// var $fontO = $("<i>");
+		// $fontO.addClass('fa fa-times');
+		// $closeButton.append($fontO);
 		
 		$(videoSelector).append($closeButton,$videoItem);
 		$(".videoOne .fa-times").on('click', function(){
