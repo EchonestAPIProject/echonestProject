@@ -8,10 +8,14 @@ var app = {};
 app.scrollD = function() {
 
 	$(".start").on("click",function(){
+				$(".search_radioButtons").empty();
 				$('html, body').animate({
 			    scrollTop: $(".search_artist").offset().top
 			}, 2000);
 		});
+	$(".display_artist").hide();
+	app.genreSelected();
+
 }
 
 //search artist field functions
@@ -128,9 +132,15 @@ app.genreRadioButtons = function(genreList){
 app.genreSelected = function(){
 
 	$(".search_radioButtons").on("change", function(e){
+		$(".video").empty();
 		app.genreListA = "";
 		e.preventDefault();
 		app.genreListA = $("input[name='artistRadioButtons']:checked").val();
+		$(".display_artist").fadeIn(500);
+			$('html, body').animate({
+		    scrollTop: $(".display_artist").offset().top
+		}, 3000);
+
 		// console.log(app.searchQuery);
             
             app.SimGenre(app.genreListA);
@@ -361,6 +371,7 @@ app.finalDetail = function (artist){
 	$.each(artist, function(index,item){
 			var Aname = item.name;
 			var Agenre = item.genre;
+			// app.videoFinder(Aname,index);
 			console.log(Aname);
 			console.log(index);
 
@@ -381,7 +392,7 @@ app.finalDetail = function (artist){
 			    api_key:apikeyAngus,
 			    format:"json",
 			    name:Aname,
-			    bucket: ["images", "biographies", "songs"],
+			    bucket: ["images", "biographies", "songs", "years_active", "reviews"],
 			    results:1
 			},
 			success: function(final){
@@ -400,7 +411,25 @@ app.finalDetail = function (artist){
 //final display is happened
 app.finalDisplay = function(finalD){
 	$.each(finalD, function(index,item){
-			console.log(item);
+
+		$(".artist-lists .list:nth-child(" + (index + 1) + ") .artist-name").text(item.name);
+		var spaceName = item.name;
+		var shortName = spaceName.replace(/Broken Social Scene/g, "bss");
+		var noSpaceName = shortName.replace(/\s+/g, '');
+		var germanName = noSpaceName.replace(/ö/g, 'o');
+		var anotherName = germanName.replace(/!/, '');
+		var finalName = anotherName.toLowerCase();
+		var url = "http://www.arts-crafts.ca/images/artists/artistpage/" + finalName + ".jpg";
+		var germanNameA = spaceName.replace(/ö/g, 'o');
+		var Name20 = germanNameA.replace(/\s+/g, '%20');
+
+		var detailBio = "http://www.arts-crafts.ca/artistspage.php?search=" + Name20;
+		// console.log(src);	
+		$(".artist-lists .list:nth-child(" + (index + 1) + ") .artist-genre").text(item.songs[0].title + ", " + item.songs[4].title + ", " + item.songs[8].title);
+		$(".artist-lists .list:nth-child(" + (index + 1) + ") .artist-img").attr("src", url);	
+		$(".artist-lists .list:nth-child(" + (index + 1) + ") .artist-bio a").attr("href", detailBio);
+		$(".artist-lists .list:nth-child(" + (index + 1) + ") .artist-bio a").attr("target", "_blank");
+		$(".artist-lists .list:nth-child(" + (index + 1) + ") .artist-year").text(item.years_active[0].start);
 	});
 
 };
@@ -443,7 +472,7 @@ app.videoFinder = function(artistName, locationFlag){// accepts an artist array 
 	// ajax call is made to find video ids of the artists
 	// throws video id
 	// ID is moved to additional constructor for video URL in youtube
-
+		var nameCorrect = artistName.replace(/torres/ig, 'torres music')
 	    $.ajax({
 		url: "https://www.googleapis.com/youtube/v3/search?",
 		type: "GET",
@@ -452,7 +481,7 @@ app.videoFinder = function(artistName, locationFlag){// accepts an artist array 
 		    key:apikeyYTMiguel,
 		    format:"json",
 		    part:"snippet",
-		    q: artistName,
+		    q: nameCorrect,
 		    type: "video"
 		},
 		success: function(results){
@@ -501,8 +530,22 @@ app.videoRenderer = function (videoID, locationFlag ){// accepts video ID and fl
 		// end construction of iframe elements;
 
 		// select the selector for video and append.
+		//adding a close button for video ---Ivy
+		var $closeButton = $("<span>");
+		var $fontO = $("<i>");
+		$fontO.addClass('fa fa-times');
+		$closeButton.append($fontO);
 		
-		$(videoSelector).append($videoItem);
+		$(videoSelector).append($closeButton,$videoItem);
+		$(".videoOne .fa-times").on('click', function(){
+			$(".videoOne").fadeOut(1000);
+		});
+		$(".videoTwo .fa-times").on('click', function(){
+			$(".videoTwo").fadeOut(1000);
+		});
+		$(".videoThree .fa-times").on('click', function(){
+			$(".videoThree").fadeOut(1000);
+		});
 
   	// }); //end of each function
 
@@ -511,12 +554,29 @@ app.videoRenderer = function (videoID, locationFlag ){// accepts video ID and fl
 	console.log("exiting video Renderer function");
 };
 
-//END VIDEO CREATION
+
+// add a function to control the youtube video
+ app.controlVideo = function(){
+ 	$(".video").hide();
+ 	$(".artist-play.playOne").on('click', function(){
+ 		$(".video.videoOne").fadeIn(1000);
+ 	});
+ 	$(".artist-play.playTwo").on('click', function(){
+ 		$(".video.videoTwo").fadeIn(1000);
+ 	});
+ 	$(".artist-play.playThree").on('click', function(){
+ 		$(".video.videoThree").fadeIn(1000);
+ 	});
+ }
+//END VIDEO CREATION$('.main-header').addClass('original').clone().insertAfter('.main-header').addClass('cloned').css('position','fixed').css('top','0').css('margin-top','0').css('z-index','100').removeClass('original').hide();
+
 
 app.init = function(){
     app.searchArtist();
-    app.genreSelected();
+    // app.genreSelected();
     app.scrollD();
+    app.controlVideo();
+    // app.stickIt();
 
     // app.randomNoGenre();
     // app.genreMatcher();
