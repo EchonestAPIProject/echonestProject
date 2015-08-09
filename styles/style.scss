@@ -258,12 +258,14 @@ body{
 	  	background: $color05;
 	  	color:$color06;
 	  	box-shadow: inset 1px 1px 1px $color06;
+	  
 	  }
 	  .artistLabel{
 	  	display: inline-block;
 	  	padding: 1% 2%;
 	  	color:$color05;
 	  	border-radius: 2px;
+	  	cursor:pointer;
 	  	text-transform: capitalize;
 	  	background-color: $color06;
 	  	margin-bottom: 3%;
@@ -271,6 +273,9 @@ body{
 	  	font-weight: 300;
 	  	box-shadow: 1px 1px 1px 0 $color02;
 	  	transition: all 0.3s ease-in;
+	  	&:hover{
+	  		box-shadow: 1px 1px 1px 0 $color01;
+	  	}
 	  }
 
 }
@@ -320,7 +325,11 @@ section.display_artist{
 			border-radius: 4px;
 			padding-left:3%;
 			padding-right:3%;
+			overflow: hidden;
 			box-shadow: 0px 2px 0px 0px $color01;
+			&:hover img{
+				transform: scale(1.05);
+			}
 
 		}
 		li:nth-child(1){
@@ -356,7 +365,7 @@ section.display_artist{
 					right:-4%;
 					background-color: $color01;
 					opacity: 0;
-					transition: opacity 0.3s ease-in;
+					transition: opacity 0.5s ease-in;
 				}
 
 			}
@@ -385,12 +394,15 @@ section.display_artist{
 				background-color: $color01;
 			}
 		}
+
 		img{
 			@include span-columns(6 of 6);
 			border-radius: 3px 3px 0px 0px;
 			position: absolute;
+			transition: all 0.3s ease-in;
 			left:0;
 			top:0;
+		
 			
 		}
 		h5{
