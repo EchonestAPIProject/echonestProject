@@ -8,10 +8,14 @@ var app = {};
 app.scrollD = function() {
 
 	$(".start").on("click",function(){
+				$(".search_radioButtons").empty();
 				$('html, body').animate({
 			    scrollTop: $(".search_artist").offset().top
 			}, 2000);
 		});
+	$(".display_artist").hide();
+	app.genreSelected();
+
 }
 
 //search artist field functions
@@ -132,6 +136,11 @@ app.genreSelected = function(){
 		app.genreListA = "";
 		e.preventDefault();
 		app.genreListA = $("input[name='artistRadioButtons']:checked").val();
+		$(".display_artist").fadeIn(500);
+			$('html, body').animate({
+		    scrollTop: $(".display_artist").offset().top
+		}, 3000);
+
 		// console.log(app.searchQuery);
             
             app.SimGenre(app.genreListA);
@@ -559,13 +568,15 @@ app.videoRenderer = function (videoID, locationFlag ){// accepts video ID and fl
  		$(".video.videoThree").fadeIn(1000);
  	});
  }
-//END VIDEO CREATION
+//END VIDEO CREATION$('.main-header').addClass('original').clone().insertAfter('.main-header').addClass('cloned').css('position','fixed').css('top','0').css('margin-top','0').css('z-index','100').removeClass('original').hide();
+
 
 app.init = function(){
     app.searchArtist();
-    app.genreSelected();
+    // app.genreSelected();
     app.scrollD();
     app.controlVideo();
+    // app.stickIt();
 
     // app.randomNoGenre();
     // app.genreMatcher();
